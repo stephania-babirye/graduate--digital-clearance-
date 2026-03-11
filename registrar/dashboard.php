@@ -41,37 +41,37 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
     <!-- Statistics -->
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-primary">📊</div>
+            <div class="stat-card stat-card-maroon">
+                <div class="stat-icon bg-primary"><i class="fas fa-chart-bar"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $total_applications; ?></h3>
+                    <h3 class="stat-number-maroon"><?php echo $total_applications; ?></h3>
                     <p>Total Applications</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-warning">⏳</div>
+            <div class="stat-card stat-card-gold">
+                <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $ready_for_approval; ?></h3>
+                    <h3 class="stat-number-gold"><?php echo $ready_for_approval; ?></h3>
                     <p>Ready for Approval</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-success">✅</div>
+            <div class="stat-card stat-card-green">
+                <div class="stat-icon bg-success"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $final_approved; ?></h3>
+                    <h3 class="stat-number-green"><?php echo $final_approved; ?></h3>
                     <p>Final Approved</p>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <div class="stat-icon bg-info">🎓</div>
+            <div class="stat-card stat-card-blue">
+                <div class="stat-icon bg-info"><i class="fas fa-graduation-cap"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $graduation_list_count; ?></h3>
+                    <h3 class="stat-number-blue"><?php echo $graduation_list_count; ?></h3>
                     <p>Graduation List</p>
                 </div>
             </div>
@@ -79,8 +79,8 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
     </div>
 
     <div class="mb-3">
-        <a href="graduation_list.php" class="btn btn-maroon">📋 View Graduation List</a>
-        <a href="generate_graduation_pdf.php" class="btn btn-gold">📄 Generate PDF</a>
+        <a href="graduation_list.php" class="btn btn-maroon"><i class="fas fa-clipboard-list"></i> View Graduation List</a>
+        <a href="generate_graduation_pdf.php" class="btn btn-gold"><i class="fas fa-file-pdf"></i> Generate PDF</a>
     </div>
 
     <!-- Applications Table -->
@@ -88,18 +88,18 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
         <div class="card-header bg-maroon d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Master Clearance Approval Table</h5>
             <small class="text-white">
-                <span class="badge bg-success">✅ Approved</span>
-                <span class="badge bg-danger">⏳ Pending</span>
-                <span class="badge bg-primary">❌ Rejected</span>
+                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Approved</span>
+                <span class="badge bg-danger"><i class="fas fa-clock"></i> Pending</span>
+                <span class="badge bg-primary"><i class="fas fa-times-circle"></i> Rejected</span>
             </small>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                    <thead class="table-light">
+                <table class="table table-hover table-bordered table-sm">
+                    <thead>
                         <tr>
                             <th rowspan="2" class="align-middle text-center">Student<br><small>(Name / Reg)</small></th>
-                            <th colspan="3" class="text-center bg-light">Department Approvals</th>
+                            <th colspan="3" class="text-center">Department Approvals</th>
                             <th rowspan="2" class="align-middle text-center">Final Status</th>
                             <th rowspan="2" class="align-middle text-center">Actions</th>
                         </tr>
@@ -126,15 +126,15 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                             // Determine resources status
                             if ($resources_approved) {
                                 $resources_status = 'approved';
-                                $resources_icon = '✅';
+                                $resources_icon = '<i class="fas fa-check-circle"></i>';
                                 $resources_badge = 'bg-success';
                             } elseif ($resources_rejected) {
                                 $resources_status = 'rejected';
-                                $resources_icon = '❌';
+                                $resources_icon = '<i class="fas fa-times-circle"></i>';
                                 $resources_badge = 'bg-primary';
                             } else {
                                 $resources_status = 'pending';
-                                $resources_icon = '⏳';
+                                $resources_icon = '<i class="fas fa-clock"></i>';
                                 $resources_badge = 'bg-danger';
                             }
                         ?>
@@ -147,38 +147,40 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                             <!-- Finance Column -->
                             <td class="text-center">
                                 <?php if ($app['finance_status'] == 'approved'): ?>
-                                    <span class="badge bg-success fs-5">✅</span>
+                                    <span class="badge bg-success"><i class="fas fa-check-circle"></i></span>
                                 <?php elseif ($app['finance_status'] == 'rejected'): ?>
-                                    <span class="badge bg-primary fs-5">❌</span>
+                                    <span class="badge bg-primary"><i class="fas fa-times-circle"></i></span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger fs-5">⏳</span>
+                                    <span class="badge bg-danger"><i class="fas fa-clock"></i></span>
                                 <?php endif; ?>
                             </td>
                             <!-- Resources Column (Library + ICT) -->
                             <td class="text-center">
-                                <span class="badge <?php echo $resources_badge; ?> fs-5"><?php echo $resources_icon; ?></span>
+                                <span class="badge <?php echo $resources_badge; ?>"><?php echo $resources_icon; ?></span>
                                 <br>
-                                <small class="text-muted">
-                                    Library: <?php echo $app['library_status'] == 'approved' ? '✓' : ($app['library_status'] == 'rejected' ? '✗' : '○'); ?>
-                                    ICT: <?php echo $app['ict_status'] == 'approved' ? '✓' : ($app['ict_status'] == 'rejected' ? '✗' : '○'); ?>
+                                <small class="text-muted d-block">
+                                    Library: <?php echo $app['library_status'] == 'approved' ? '<i class="fas fa-check text-success"></i>' : ($app['library_status'] == 'rejected' ? '<i class="fas fa-times text-danger"></i>' : '<i class="far fa-circle text-warning"></i>'); ?>
+                                </small>
+                                <small class="text-muted d-block">
+                                    ICT: <?php echo $app['ict_status'] == 'approved' ? '<i class="fas fa-check text-success"></i>' : ($app['ict_status'] == 'rejected' ? '<i class="fas fa-times text-danger"></i>' : '<i class="far fa-circle text-warning"></i>'); ?>
                                 </small>
                             </td>
                             <!-- Faculty Column -->
                             <td class="text-center">
                                 <?php if ($app['faculty_status'] == 'approved'): ?>
-                                    <span class="badge bg-success fs-5">✅</span>
+                                    <span class="badge bg-success"><i class="fas fa-check-circle"></i></span>
                                 <?php elseif ($app['faculty_status'] == 'rejected'): ?>
-                                    <span class="badge bg-primary fs-5">❌</span>
+                                    <span class="badge bg-primary"><i class="fas fa-times-circle"></i></span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger fs-5">⏳</span>
+                                    <span class="badge bg-danger"><i class="fas fa-clock"></i></span>
                                 <?php endif; ?>
                             </td>
                             <!-- Final Status Column -->
                             <td class="text-center">
                                 <?php if ($app['registrar_status'] == 'approved'): ?>
-                                    <span class="badge badge-approved fs-6">✅ Approved</span>
+                                    <span class="badge badge-approved fs-6"><i class="fas fa-check-circle"></i> Approved</span>
                                 <?php else: ?>
-                                    <span class="badge badge-pending fs-6">⏳ Pending</span>
+                                    <span class="badge badge-pending fs-6"><i class="fas fa-clock"></i> Pending</span>
                                 <?php endif; ?>
                             </td>
                             <!-- Actions Column -->
@@ -197,7 +199,7 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                                             <i class="bi bi-mortarboard"></i> Add to Graduation List
                                         </button>
                                     <?php else: ?>
-                                        <span class="badge bg-info fs-6">🎓 In Graduation List</span>
+                                        <span class="badge bg-info fs-6"><i class="fas fa-graduation-cap"></i> In Graduation List</span>
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <small class="text-muted">Waiting for approvals...</small>
@@ -228,7 +230,7 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
-                <h5 class="modal-title">🎓 Confirm Graduation</h5>
+                <h5 class="modal-title"><i class="fas fa-graduation-cap"></i> Confirm Graduation</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form method="POST" action="add_to_graduation_list.php">
@@ -236,7 +238,7 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                     <input type="hidden" name="application_id" id="gradAppId">
                     
                     <div class="alert alert-success">
-                        <h6 class="alert-heading">✅ All Approvals Confirmed</h6>
+                        <h6 class="alert-heading"><i class="fas fa-check-circle"></i> All Approvals Confirmed</h6>
                         <hr>
                         <p class="mb-0"><strong>Student:</strong> <span id="gradStudentName"></span></p>
                         <p class="mb-0"><strong>Reg. No:</strong> <span id="gradRegNo"></span></p>
@@ -264,7 +266,7 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">✅ Confirm & Add to Graduation List</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Confirm & Add to Graduation List</button>
                 </div>
             </form>
         </div>

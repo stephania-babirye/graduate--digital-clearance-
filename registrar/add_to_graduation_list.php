@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $check_grad = "SELECT id FROM graduation_list WHERE application_id = $application_id";
         if ($conn->query($check_grad)->num_rows == 0) {
             // Add to graduation list with notes
-            $insert_query = "INSERT INTO graduation_list (user_id, application_id, confirmed_by, confirmation_status, notes, confirmed_at) 
-                           VALUES ({$app['user_id']}, $application_id, {$_SESSION['user_id']}, 'confirmed', '$notes', NOW())";
+            $insert_query = "INSERT INTO graduation_list (user_id, application_id, graduation_year, confirmed_by, confirmation_status, notes, confirmed_at) 
+                           VALUES ({$app['user_id']}, $application_id, $graduation_year, {$_SESSION['user_id']}, 'confirmed', '$notes', NOW())";
             
             if ($conn->query($insert_query)) {
                 // Log activity

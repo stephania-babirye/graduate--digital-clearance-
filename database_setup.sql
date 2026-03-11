@@ -167,9 +167,9 @@ CREATE TABLE IF NOT EXISTS activity_logs (
 -- Initial admin user (password: admin123)
 -- IMPORTANT: Change this password immediately after installation
 -- ========================================
-INSERT INTO users (full_name, email, password, role) 
+INSERT IGNORE INTO users (full_name, email, password, role) 
 VALUES ('System Administrator', 'admin@umu.ac.ug', '$2y$10$7XtGLmwk/1dldSzIhh/Z1uKOZa0CS3lUs7WiPQ.ux41rIKCEsgWsa', 'admin');
 
 -- Insert default system settings
-INSERT INTO system_settings (university_name, university_email, university_phone, graduation_year, clearance_open) 
+INSERT IGNORE INTO system_settings (university_name, university_email, university_phone, graduation_year, clearance_open) 
 VALUES ('Uganda Martyrs University', 'info@umu.ac.ug', '+256-414-410-611', 2026, 1);

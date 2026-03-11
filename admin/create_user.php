@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'admin' => 'System Administrator'
             ];
             
-            $_SESSION['success'] = "✅ " . $role_names[$role] . " account created successfully for " . $full_name . "!";
+            $_SESSION['success'] = "<i class='fas fa-check-circle'></i> " . $role_names[$role] . " account created successfully for " . $full_name . "!";
             header("Location: user_management.php");
             exit();
         } else {
@@ -75,14 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <p class="mb-0">
             Add any type of user to the system - Students, Officers, or Administrators
             <a href="ADMIN_USER_CREATION_GUIDE.md" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
-                📖 View Creation Guide
+                <i class="fas fa-book"></i> View Creation Guide
             </a>
         </p>
     </div>
 
     <!-- User Type Info Alert -->
     <div class="alert alert-info alert-dismissible fade show">
-        <h6 class="alert-heading"><strong>👥 Available User Types:</strong></h6>
+        <h6 class="alert-heading"><strong><i class="fas fa-users"></i> Available User Types:</strong></h6>
         <div class="row mt-3">
             <div class="col-md-6">
                 <ul class="mb-0">
@@ -124,8 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Email Address *</label>
                         <input type="email" class="form-control" name="email" required>
-                        <small class="text-muted">⚠️ <strong>Students only:</strong> Email must contain '@stud'</small><br>
-                        <small class="text-muted">📧 <strong>Officers/Admins:</strong> Any valid email address</small>
+                        <small class="text-muted"><i class="fas fa-exclamation-triangle"></i> <strong>Students only:</strong> Email must contain '@stud'</small><br>
+                        <small class="text-muted"><i class="fas fa-envelope"></i> <strong>Officers/Admins:</strong> Any valid email address</small>
                     </div>
                 </div>
 
@@ -145,17 +145,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="form-label"><strong>User Role *</strong></label>
                         <select class="form-control" name="role" id="roleSelect" required onchange="toggleStudentFields()">
                             <option value="">-- Select User Role --</option>
-                            <optgroup label="👨‍🎓 Student Role">
+                            <optgroup label="Student Role">
                                 <option value="student">Student</option>
                             </optgroup>
-                            <optgroup label="👔 Officer Roles">
+                            <optgroup label="Officer Roles">
                                 <option value="finance">Finance Officer</option>
                                 <option value="library">Library Officer</option>
                                 <option value="ict">ICT Officer</option>
                                 <option value="dean">Faculty Dean</option>
                                 <option value="registrar">Academic Registrar</option>
                             </optgroup>
-                            <optgroup label="🔧 Administrator Role">
+                            <optgroup label="Administrator Role">
                                 <option value="admin">System Administrator</option>
                             </optgroup>
                         </select>
@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Quick Reference Card -->
     <div class="card mt-3 border-info">
         <div class="card-body">
-            <h6 class="card-title text-info"><strong>💡 Quick Reference - Default Credentials</strong></h6>
+            <h6 class="card-title text-info"><strong><i class="fas fa-lightbulb"></i> Quick Reference - Default Credentials</strong></h6>
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-1"><strong>Officer Accounts:</strong> Default password = <code>officer123</code></p>
@@ -208,8 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-6">
                     <p class="mb-1"><strong>Email Format:</strong></p>
                     <ul class="mb-0">
-                        <li>Students: <code>name@stud.umu.ac.ug</code> ✅</li>
-                        <li>Others: <code>name@umu.ac.ug</code> or any valid email ✅</li>
+                        <li>Students: <code>name@stud.umu.ac.ug</code> <i class="fas fa-check text-success"></i></li>
+                        <li>Others: <code>name@umu.ac.ug</code> or any valid email <i class="fas fa-check text-success"></i></li>
                     </ul>
                 </div>
             </div>
@@ -226,18 +226,18 @@ function toggleStudentFields() {
     
     // Role descriptions
     const descriptions = {
-        'student': '👨‍🎓 Student accounts can apply for clearance and track their graduation status',
-        'finance': '💰 Finance officers approve/reject financial clearances',
-        'library': '📚 Library officers manage book returns and library clearances',
-        'ict': '💻 ICT officers handle equipment returns and technical clearances',
-        'dean': '🎓 Faculty deans approve academic results and dissertations',
-        'registrar': '📋 Academic Registrar gives final approval and manages graduation list',
-        'admin': '🔧 System administrators have full access to all system functions'
+        'student': '<i class="fas fa-user-graduate"></i> Student accounts can apply for clearance and track their graduation status',
+        'finance': '<i class="fas fa-dollar-sign"></i> Finance officers approve/reject financial clearances',
+        'library': '<i class="fas fa-book"></i> Library officers manage book returns and library clearances',
+        'ict': '<i class="fas fa-laptop"></i> ICT officers handle equipment returns and technical clearances',
+        'dean': '<i class="fas fa-graduation-cap"></i> Faculty deans approve academic results and dissertations',
+        'registrar': '<i class="fas fa-clipboard-list"></i> Academic Registrar gives final approval and manages graduation list',
+        'admin': '<i class="fas fa-cog"></i> System administrators have full access to all system functions'
     };
     
     // Update description
     if (role && descriptions[role]) {
-        roleDescription.innerHTML = '<strong class="text-success">✓</strong> ' + descriptions[role];
+        roleDescription.innerHTML = '<strong class="text-success"><i class="fas fa-check"></i></strong> ' + descriptions[role];
     } else {
         roleDescription.textContent = 'Select a role to see description';
     }

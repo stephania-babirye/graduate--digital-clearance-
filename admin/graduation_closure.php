@@ -131,7 +131,7 @@ $graduated_students = $conn->query($graduated_students_query)->fetch_assoc()['to
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="stat-card">
-                <div class="stat-icon bg-primary">📊</div>
+                <div class="stat-icon bg-primary"><i class="fas fa-chart-bar"></i></div>
                 <div class="stat-details">
                     <h3><?php echo $total_applications; ?></h3>
                     <p>Total Applications</p>
@@ -140,7 +140,7 @@ $graduated_students = $conn->query($graduated_students_query)->fetch_assoc()['to
         </div>
         <div class="col-md-3">
             <div class="stat-card">
-                <div class="stat-icon bg-success">✅</div>
+                <div class="stat-icon bg-success"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-details">
                     <h3><?php echo $approved_applications; ?></h3>
                     <p>Approved</p>
@@ -149,7 +149,7 @@ $graduated_students = $conn->query($graduated_students_query)->fetch_assoc()['to
         </div>
         <div class="col-md-3">
             <div class="stat-card">
-                <div class="stat-icon bg-warning">⏳</div>
+                <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
                 <div class="stat-details">
                     <h3><?php echo $pending_applications; ?></h3>
                     <p>Pending</p>
@@ -158,7 +158,7 @@ $graduated_students = $conn->query($graduated_students_query)->fetch_assoc()['to
         </div>
         <div class="col-md-3">
             <div class="stat-card">
-                <div class="stat-icon bg-info">🎓</div>
+                <div class="stat-icon bg-info"><i class="fas fa-graduation-cap"></i></div>
                 <div class="stat-details">
                     <h3><?php echo $graduated_students; ?></h3>
                     <p>Graduated</p>

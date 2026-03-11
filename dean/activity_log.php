@@ -53,9 +53,9 @@ $logs_result = $conn->query($logs_query);
                             <td><?php echo htmlspecialchars($log['registration_number']); ?></td>
                             <td>
                                 <?php if ($log['action'] == 'approved'): ?>
-                                    <span class="badge bg-success">Approved</span>
+                                    <span class="badge bg-success"><i class="fas fa-check-circle"></i> Approved</span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger">Rejected</span>
+                                    <span class="badge bg-danger"><i class="fas fa-times-circle"></i> Rejected</span>
                                 <?php endif; ?>
                             </td>
                             <td><?php echo htmlspecialchars($log['officer_name']); ?></td>

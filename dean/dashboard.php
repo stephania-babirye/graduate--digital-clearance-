@@ -50,28 +50,28 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
     <!-- Statistics -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-warning">⏳</div>
+            <div class="stat-card stat-card-gold">
+                <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $pending_count; ?></h3>
+                    <h3 class="stat-number-gold"><?php echo $pending_count; ?></h3>
                     <p>Pending Applications</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-success">✅</div>
+            <div class="stat-card stat-card-green">
+                <div class="stat-icon bg-success"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $approved_count; ?></h3>
+                    <h3 class="stat-number-green"><?php echo $approved_count; ?></h3>
                     <p>Approved</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-danger">❌</div>
+            <div class="stat-card stat-card-blue">
+                <div class="stat-icon bg-danger"><i class="fas fa-times-circle"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $rejected_count; ?></h3>
+                    <h3 class="stat-number-blue"><?php echo $rejected_count; ?></h3>
                     <p>Rejected</p>
                 </div>
             </div>
@@ -129,7 +129,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($faculty_details['results_confirmed'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary">Pending</span>';
+                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -140,26 +140,26 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($faculty_details['dissertation_approved'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary">Pending</span>';
+                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
                             <td>
                                 <?php if ($app['faculty_status'] == 'pending'): ?>
-                                    <span class="badge badge-pending">Pending</span>
+                                    <span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>
                                 <?php elseif ($app['faculty_status'] == 'approved'): ?>
-                                    <span class="badge badge-approved">Approved</span>
+                                    <span class="badge badge-approved"><i class="fas fa-check-circle"></i> Approved</span>
                                 <?php else: ?>
-                                    <span class="badge badge-rejected">Rejected</span>
+                                    <span class="badge badge-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
                                 <?php endif; ?>
                             </td>
                             <td>
                                 <?php if ($app['faculty_status'] == 'pending'): ?>
                                     <button class="btn btn-sm btn-success mb-1" onclick="showApproveModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>', '<?php echo htmlspecialchars($app['program_level'] ?? 'N/A'); ?>')">
-                                        ✅ Approve
+                                        <i class="fas fa-check"></i> Approve
                                     </button>
                                     <button class="btn btn-sm btn-danger mb-1" onclick="showRejectModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
-                                        ❌ Reject
+                                        <i class="fas fa-times"></i> Reject
                                     </button>
                                 <?php else: ?>
                                     <button class="btn btn-sm btn-info mb-1" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>', '<?php echo htmlspecialchars($app['program_level'] ?? 'N/A'); ?>')">
@@ -199,8 +199,8 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                 </div>
                 <hr>
                 <h6 class="text-maroon">Faculty Approval Status</h6>
-                <p><strong>Results Confirmed:</strong> <span id="modalResults">Pending</span></p>
-                <p><strong>Dissertation Approved:</strong> <span id="modalDissertation">Pending</span></p>
+                <p><strong>Results Confirmed:</strong> <span id="modalResults"><i class="fas fa-clock"></i> Pending</span></p>
+                <p><strong>Dissertation Approved:</strong> <span id="modalDissertation"><i class="fas fa-clock"></i> Pending</span></p>
                 <div id="facultyNameDiv">
                     <strong>Faculty Name:</strong>
                     <p id="modalFacultyName" class="text-muted"></p>
@@ -352,7 +352,7 @@ function viewDetails(id, name, regNo, course) {
             } else if (data.results_confirmed == 'no') {
                 document.getElementById('modalResults').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalResults').innerHTML = '<span class="badge bg-secondary">Pending</span>';
+                document.getElementById('modalResults').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Dissertation approved status
@@ -361,7 +361,7 @@ function viewDetails(id, name, regNo, course) {
             } else if (data.dissertation_approved == 'no') {
                 document.getElementById('modalDissertation').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalDissertation').innerHTML = '<span class="badge bg-secondary">Pending</span>';
+                document.getElementById('modalDissertation').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Faculty name

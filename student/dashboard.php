@@ -253,9 +253,9 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
         <div class="card-body">
             <div class="alert alert-info mb-3">
                 <strong>Color Legend:</strong>
-                <span class="badge badge-approved ms-2">Green = Approved</span>
-                <span class="badge badge-rejected ms-2">Blue = Rejected</span>
-                <span class="badge badge-pending ms-2">Red = Pending</span>
+                <span class="badge badge-approved ms-2"><i class="fas fa-check-circle"></i> Green = Approved</span>
+                <span class="badge badge-rejected ms-2"><i class="fas fa-times-circle"></i> Blue = Rejected</span>
+                <span class="badge badge-pending ms-2"><i class="fas fa-clock"></i> Red = Pending</span>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -292,15 +292,15 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                             switch($status) {
                                 case 'approved':
                                     $badge_class = 'badge-approved';
-                                    $status_icon = '✅';
+                                    $status_icon = '<i class="fas fa-check-circle"></i>';
                                     break;
                                 case 'rejected':
                                     $badge_class = 'badge-rejected';
-                                    $status_icon = '❌';
+                                    $status_icon = '<i class="fas fa-times-circle"></i>';
                                     break;
                                 default:
                                     $badge_class = 'badge-pending';
-                                    $status_icon = '⏳';
+                                    $status_icon = '<i class="fas fa-clock"></i>';
                             }
                         ?>
                         <tr>

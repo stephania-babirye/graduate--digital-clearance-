@@ -39,28 +39,28 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
     <!-- Statistics -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-warning">⏳</div>
+            <div class="stat-card stat-card-gold">
+                <div class="stat-icon bg-warning"><i class="fas fa-clock"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $pending_count; ?></h3>
+                    <h3 class="stat-number-gold"><?php echo $pending_count; ?></h3>
                     <p>Pending Applications</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-success">✅</div>
+            <div class="stat-card stat-card-green">
+                <div class="stat-icon bg-success"><i class="fas fa-check-circle"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $approved_count; ?></h3>
+                    <h3 class="stat-number-green"><?php echo $approved_count; ?></h3>
                     <p>Approved</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <div class="stat-icon bg-danger">❌</div>
+            <div class="stat-card stat-card-blue">
+                <div class="stat-icon bg-danger"><i class="fas fa-times-circle"></i></div>
                 <div class="stat-details">
-                    <h3><?php echo $rejected_count; ?></h3>
+                    <h3 class="stat-number-blue"><?php echo $rejected_count; ?></h3>
                     <p>Rejected</p>
                 </div>
             </div>
@@ -108,7 +108,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($ict_details['laptop_returned'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary">Pending</span>';
+                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -122,17 +122,17 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($ict_details['equipment_damaged'] == 'no') {
                                     echo '<span class="badge bg-success">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary">Pending</span>';
+                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
                             <td>
                                 <?php if ($app['ict_status'] == 'pending'): ?>
-                                    <span class="badge badge-pending">Pending</span>
+                                    <span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>
                                 <?php elseif ($app['ict_status'] == 'approved'): ?>
-                                    <span class="badge badge-approved">Approved</span>
+                                    <span class="badge badge-approved"><i class="fas fa-check-circle"></i> Approved</span>
                                 <?php else: ?>
-                                    <span class="badge badge-rejected">Rejected</span>
+                                    <span class="badge badge-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -141,10 +141,10 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                         <i class="bi bi-eye"></i> View Details
                                     </button>
                                     <button class="btn btn-sm btn-success mb-1" onclick="showApproveModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
-                                        ✅ Approve
+                                        <i class="fas fa-check"></i> Approve
                                     </button>
                                     <button class="btn btn-sm btn-danger mb-1" onclick="showRejectModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
-                                        ❌ Reject
+                                        <i class="fas fa-times"></i> Reject
                                     </button>
                                 <?php else: ?>
                                     <button class="btn btn-sm btn-info mb-1" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
@@ -180,8 +180,8 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                 </div>
                 <hr>
                 <h6 class="text-maroon">ICT Equipment Status</h6>
-                <p><strong>Laptop Returned:</strong> <span id="modalLaptop">Pending</span></p>
-                <p><strong>Equipment Damaged:</strong> <span id="modalDamaged">Pending</span></p>
+                <p><strong>Laptop Returned:</strong> <span id="modalLaptop"><i class="fas fa-clock"></i> Pending</span></p>
+                <p><strong>Equipment Damaged:</strong> <span id="modalDamaged"><i class="fas fa-clock"></i> Pending</span></p>
                 <div id="damageDescDiv" style="display:none;">
                     <strong>Damage Description:</strong>
                     <p id="modalDamageDesc" class="text-danger"></p>
@@ -248,7 +248,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">✅ Approve Clearance</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Approve Clearance</button>
                 </div>
             </form>
         </div>
@@ -305,7 +305,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">❌ Reject Application</button>
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-times"></i> Reject Application</button>
                 </div>
             </form>
         </div>
@@ -327,7 +327,7 @@ function viewDetails(id, name, regNo) {
             } else if (data.laptop_returned == 'no') {
                 document.getElementById('modalLaptop').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalLaptop').innerHTML = '<span class="badge bg-secondary">Pending</span>';
+                document.getElementById('modalLaptop').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Equipment damaged status
@@ -341,7 +341,7 @@ function viewDetails(id, name, regNo) {
                 document.getElementById('modalDamaged').innerHTML = '<span class="badge bg-success">No</span>';
                 document.getElementById('damageDescDiv').style.display = 'none';
             } else {
-                document.getElementById('modalDamaged').innerHTML = '<span class="badge bg-secondary">Pending</span>';
+                document.getElementById('modalDamaged').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
                 document.getElementById('damageDescDiv').style.display = 'none';
             }
             

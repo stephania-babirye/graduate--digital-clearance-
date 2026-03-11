@@ -66,20 +66,20 @@ $activity_result = $conn->query($activity_query);
         }
         ?>
         <div class="col-md-4">
-            <div class="stat-card">
-                <h3 class="stat-number text-warning"><?php echo $pending_count; ?></h3>
+            <div class="stat-card stat-card-gold">
+                <h3 class="stat-number stat-number-gold"><?php echo $pending_count; ?></h3>
                 <p class="mb-0">Pending Review</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <h3 class="stat-number text-success"><?php echo $approved_count; ?></h3>
+            <div class="stat-card stat-card-green">
+                <h3 class="stat-number stat-number-green"><?php echo $approved_count; ?></h3>
                 <p class="mb-0">Approved</p>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="stat-card">
-                <h3 class="stat-number text-primary"><?php echo $rejected_count; ?></h3>
+            <div class="stat-card stat-card-blue">
+                <h3 class="stat-number stat-number-blue"><?php echo $rejected_count; ?></h3>
                 <p class="mb-0">Rejected</p>
             </div>
         </div>
@@ -124,17 +124,29 @@ $activity_result = $conn->query($activity_query);
                             <td><?php echo htmlspecialchars($app['course'] ?? 'N/A'); ?></td>
                             <td><?php echo htmlspecialchars($app['campus'] ?? 'N/A'); ?></td>
                             <td><?php echo date('M j, Y', strtotime($app['applied_at'])); ?></td>
-                            <td><span class="badge <?php echo $status_class; ?>"><?php echo ucfirst($app['finance_status']); ?></span></td>
+                            <td>
+                                <span class="badge <?php echo $status_class; ?>">
+                                    <?php 
+                                    if ($app['finance_status'] == 'approved') {
+                                        echo '<i class="fas fa-check-circle"></i> Approved';
+                                    } elseif ($app['finance_status'] == 'rejected') {
+                                        echo '<i class="fas fa-times-circle"></i> Rejected';
+                                    } else {
+                                        echo '<i class="fas fa-clock"></i> Pending';
+                                    }
+                                    ?>
+                                </span>
+                            </td>
                             <td>
                                 <button class="btn btn-sm btn-info" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
                                     View Details
                                 </button>
                                 <?php if ($app['finance_status'] == 'pending'): ?>
                                 <button class="btn btn-sm btn-success" onclick="approveApplication(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>')">
-                                    ✅ Approve
+                                    <i class="fas fa-check"></i> Approve
                                 </button>
                                 <button class="btn btn-sm btn-danger" onclick="showRejectModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>')">
-                                    ❌ Reject
+                                    <i class="fas fa-times"></i> Reject
                                 </button>
                                 <?php endif; ?>
                             </td>

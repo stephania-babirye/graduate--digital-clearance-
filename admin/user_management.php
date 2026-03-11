@@ -35,7 +35,7 @@ $users_result = $conn->query($users_query);
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h5 class="mb-2">👥 Add New Users to the System</h5>
+                    <h5 class="mb-2"><i class="fas fa-users"></i> Add New Users to the System</h5>
                     <p class="mb-0 text-muted">Create accounts for Students, Officers (Finance, Library, ICT, Dean, Registrar), or Administrators</p>
                 </div>
                 <div class="col-md-4 text-end">

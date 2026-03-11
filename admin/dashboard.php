@@ -73,26 +73,26 @@ while ($row = $roles_result->fetch_assoc()) {
     <!-- Statistics Cards -->
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="stat-card">
-                <h3 class="stat-number"><?php echo $total_users; ?></h3>
+            <div class="stat-card stat-card-maroon">
+                <h3 class="stat-number stat-number-maroon"><?php echo $total_users; ?></h3>
                 <p class="mb-0">Total Users</p>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <h3 class="stat-number text-primary"><?php echo $total_students; ?></h3>
+            <div class="stat-card stat-card-blue">
+                <h3 class="stat-number stat-number-blue"><?php echo $total_students; ?></h3>
                 <p class="mb-0">Students</p>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <h3 class="stat-number text-success"><?php echo $total_officers; ?></h3>
+            <div class="stat-card stat-card-green">
+                <h3 class="stat-number stat-number-green"><?php echo $total_officers; ?></h3>
                 <p class="mb-0">Officers</p>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="stat-card">
-                <h3 class="stat-number text-warning"><?php echo $pending_applications; ?></h3>
+            <div class="stat-card stat-card-gold">
+                <h3 class="stat-number stat-number-gold"><?php echo $pending_applications; ?></h3>
                 <p class="mb-0">Pending Clearances</p>
             </div>
         </div>
@@ -127,34 +127,34 @@ while ($row = $roles_result->fetch_assoc()) {
             <h5 class="mb-0">User Management</h5>
         </div>
         <div class="card-body">
-            <div class="row text-center">
-                <div class="col-md-3 mb-3">
-                    <a href="user_management.php" class="btn btn-maroon w-100 mb-2">
-                        <i class="bi bi-people"></i><br>
-                        Manage Users
+            <div class="row justify-content-center g-3">
+                <div class="col-6 col-md-3">
+                    <a href="user_management.php" class="btn btn-maroon user-action-btn">
+                        <i class="bi bi-people"></i>
+                        <span>Manage Users</span>
                     </a>
-                    <small class="text-muted">View, edit, deactivate users</small>
+                    <small class="text-muted d-block mt-2 text-center">View, edit, deactivate</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="create_user.php" class="btn btn-success w-100 mb-2">
-                        <i class="bi bi-person-plus"></i><br>
-                        Create New User
+                <div class="col-6 col-md-3">
+                    <a href="create_user.php" class="btn btn-success user-action-btn">
+                        <i class="bi bi-person-plus"></i>
+                        <span>Create User</span>
                     </a>
-                    <small class="text-muted">Add students, officers, or admins</small>
+                    <small class="text-muted d-block mt-2 text-center">Add new accounts</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="reset_passwords.php" class="btn btn-warning w-100 mb-2">
-                        <i class="bi bi-key"></i><br>
-                        Reset Passwords
+                <div class="col-6 col-md-3">
+                    <a href="password_generator.php" class="btn btn-warning user-action-btn">
+                        <i class="bi bi-key"></i>
+                        <span>Reset Passwords</span>
                     </a>
-                    <small class="text-muted">Reset user passwords</small>
+                    <small class="text-muted d-block mt-2 text-center">Reset credentials</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="user_management.php" class="btn btn-info w-100 mb-2">
-                        <i class="bi bi-shield"></i><br>
-                        Role Management
+                <div class="col-6 col-md-3">
+                    <a href="user_management.php" class="btn btn-info user-action-btn">
+                        <i class="bi bi-shield"></i>
+                        <span>Role Management</span>
                     </a>
-                    <small class="text-muted">Manage user roles</small>
+                    <small class="text-muted d-block mt-2 text-center">Manage permissions</small>
                 </div>
             </div>
         </div>
@@ -234,34 +234,34 @@ while ($row = $roles_result->fetch_assoc()) {
             <h5 class="mb-0">System Management</h5>
         </div>
         <div class="card-body">
-            <div class="row text-center">
-                <div class="col-md-3 mb-3">
-                    <a href="graduation_closure.php" class="btn btn-danger w-100 mb-2">
-                        <i class="bi bi-lock"></i><br>
-                        Graduation Closure
+            <div class="row justify-content-center g-3">
+                <div class="col-6 col-md-3">
+                    <a href="graduation_closure.php" class="btn btn-danger user-action-btn">
+                        <i class="bi bi-lock"></i>
+                        <span>Graduation Closure</span>
                     </a>
-                    <small class="text-muted">Close/Open clearance system</small>
+                    <small class="text-muted d-block mt-2 text-center">Close/Open system</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="system_settings.php" class="btn btn-secondary w-100 mb-2">
-                        <i class="bi bi-gear"></i><br>
-                        System Settings
+                <div class="col-6 col-md-3">
+                    <a href="system_settings.php" class="btn btn-secondary user-action-btn">
+                        <i class="bi bi-gear"></i>
+                        <span>System Settings</span>
                     </a>
-                    <small class="text-muted">Configure system parameters</small>
+                    <small class="text-muted d-block mt-2 text-center">Configure parameters</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="logs.php" class="btn btn-primary w-100 mb-2">
-                        <i class="bi bi-file-text"></i><br>
-                        Activity Logs
+                <div class="col-6 col-md-3">
+                    <a href="logs.php" class="btn btn-primary user-action-btn">
+                        <i class="bi bi-file-text"></i>
+                        <span>Activity Logs</span>
                     </a>
-                    <small class="text-muted">View system audit trail</small>
+                    <small class="text-muted d-block mt-2 text-center">View audit trail</small>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <a href="backup.php" class="btn btn-warning w-100 mb-2">
-                        <i class="bi bi-database"></i><br>
-                        Backup Data
+                <div class="col-6 col-md-3">
+                    <a href="backup.php" class="btn btn-warning user-action-btn">
+                        <i class="bi bi-database"></i>
+                        <span>Backup Data</span>
                     </a>
-                    <small class="text-muted">Export database backup</small>
+                    <small class="text-muted d-block mt-2 text-center">Export database</small>
                 </div>
             </div>
         </div>
@@ -281,7 +281,6 @@ while ($row = $roles_result->fetch_assoc()) {
                             <th>User</th>
                             <th>Action</th>
                             <th>Description</th>
-                            <th>IP Address</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -297,14 +296,13 @@ while ($row = $roles_result->fetch_assoc()) {
                             <td><?php echo htmlspecialchars($user_name); ?></td>
                             <td><span class="badge bg-info"><?php echo htmlspecialchars($activity['action']); ?></span></td>
                             <td><?php echo htmlspecialchars($activity['description']); ?></td>
-                            <td><?php echo htmlspecialchars($activity['ip_address']); ?></td>
                         </tr>
                         <?php 
                             endwhile;
                         else:
                         ?>
                         <tr>
-                            <td colspan="5" class="text-center">No recent activity</td>
+                            <td colspan="4" class="text-center">No recent activity</td>
                         </tr>
                         <?php endif; ?>
                     </tbody>

@@ -4,11 +4,11 @@ include '../includes/header.php';
 ?>
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5 col-lg-4">
             <div class="card shadow-lg">
                 <div class="card-header bg-maroon text-center">
-                    <h3 class="mb-0">Unified Login</h3>
-                    <p class="mb-0 mt-2" style="color: #FFE5B4;">Enter your credentials to access your dashboard</p>
+                    <h3 class="mb-0" style="color: #FFD700;">LOGIN</h3>
+                    <p class="mb-0 mt-2" style="color: #FFE5B4;">Login to access your dashboard</p>
                 </div>
                 <div class="card-body p-4">
             
@@ -33,16 +33,16 @@ include '../includes/header.php';
             <form method="POST" action="authenticate.php">
                 <div class="form-group mb-3">
                     <label for="email" class="form-label">Email Address</label>
-                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Enter your email" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Enter your password" required>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
                 </div>
                 <div class="form-group text-end mb-3">
                     <a href="forgot.php" class="text-maroon">Forgot Password?</a>
                 </div>
-                <button type="submit" class="btn btn-maroon btn-lg w-100 mb-3">Login</button>
+                <button type="submit" class="btn btn-maroon w-100 mb-3">Login</button>
             </form>
             
             <hr>
