@@ -103,9 +103,9 @@ if (file_exists('../backups')) {
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
-                        <li><strong>📊 Total Backups:</strong> <?php echo count($backups); ?></li>
-                        <li><strong>💾 Total Size:</strong> <?php echo number_format(array_sum(array_column($backups, 'size')) / 1024 / 1024, 2); ?> MB</li>
-                        <li><strong>📅 Last Backup:</strong> <?php echo count($backups) > 0 ? date('M j, Y g:i A', $backups[0]['date']) : 'None'; ?></li>
+                        <li><strong><i class="fas fa-chart-bar me-1"></i> Total Backups:</strong> <?php echo count($backups); ?></li>
+                        <li><strong><i class="fas fa-hard-drive me-1"></i> Total Size:</strong> <?php echo number_format(array_sum(array_column($backups, 'size')) / 1024 / 1024, 2); ?> MB</li>
+                        <li><strong><i class="fas fa-calendar-days me-1"></i> Last Backup:</strong> <?php echo count($backups) > 0 ? date('M j, Y g:i A', $backups[0]['date']) : 'None'; ?></li>
                     </ul>
                 </div>
             </div>
@@ -136,10 +136,10 @@ if (file_exists('../backups')) {
                             <td><?php echo date('M j, Y g:i A', $backup['date']); ?></td>
                             <td>
                                 <a href="download_backup.php?file=<?php echo urlencode($backup['name']); ?>" 
-                                   class="btn btn-sm btn-primary">📥 Download</a>
+                                              class="btn btn-sm btn-primary"><i class="fas fa-download me-1"></i>Download</a>
                                 <a href="delete_backup.php?file=<?php echo urlencode($backup['name']); ?>" 
                                    class="btn btn-sm btn-danger" 
-                                   onclick="return confirm('Delete this backup?')">🗑️ Delete</a>
+                                              onclick="return confirm('Delete this backup?')"><i class="fas fa-trash-alt me-1"></i>Delete</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -13,11 +13,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts - Celtic Style -->
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=MedievalSharp&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/code%20final/assets/css/style.css">
+    <!-- Custom CSS (cache-busted to ensure latest styles load) -->
+    <link rel="stylesheet" href="/code%20final/assets/css/style.css?v=<?php echo time(); ?>">
+    <script>
+        // Compatibility shim to avoid runtime errors from scripts expecting mgt.clearMarks().
+        (function () {
+            if (typeof window.mgt === 'undefined' || window.mgt === null || typeof window.mgt !== 'object') {
+                window.mgt = {};
+            }
+            if (typeof window.mgt.clearMarks !== 'function') {
+                window.mgt.clearMarks = function () {
+                    return;
+                };
+            }
+        })();
+    </script>
 </head>
 <body>
-<header class="p-3 text-center shadow-sm" style="background-color: #f5f5f5;">
+<header class="app-header p-3 text-center shadow-sm" style="background-color: #f5f5f5;">
+    <a href="/code%20final/login/logout.php" class="global-logout global-logout-top" aria-label="Logout">
+        Logout
+    </a>
     <img src="/code%20final/assets/images/logo.png" alt="UMU Logo" height="60" style="display:none;" onerror="this.style.display='none'">
     <h1>
         <span style="color: #A52A2A;">U</span><span style="color: black;">ganda</span>

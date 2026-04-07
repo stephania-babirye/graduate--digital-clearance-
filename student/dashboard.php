@@ -86,10 +86,10 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
         </div>
     </div>
 
-    <div class="row">
+    <div class="row g-4 align-items-start profile-layout-row">
         <!-- Photo Upload Section -->
-        <div class="col-md-4">
-            <div class="card mb-4">
+        <div class="col-12 col-lg-4">
+            <div class="card mb-4 profile-photo-card">
                 <div class="card-header bg-maroon">
                     <h5 class="mb-0">Graduation Photo</h5>
                 </div>
@@ -108,9 +108,7 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                     
                     <form action="upload_photo.php" method="POST" enctype="multipart/form-data" id="photoForm">
                         <div class="mb-3">
-                            <input type="file" class="form-control" name="photo" id="photoInput" 
-                                   accept="image/jpeg,image/png" required onchange="previewPhoto(this)">
-                            <small class="text-muted">JPG/PNG, Max 2MB</small>
+                            <input type="file" class="form-control" name="photo" id="photoInput" accept="image/jpeg,image/png" onchange="previewPhoto(this)" required>
                         </div>
                         <button type="submit" class="btn btn-maroon w-100">Upload Photo</button>
                     </form>
@@ -119,14 +117,14 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
         </div>
 
         <!-- Profile Information -->
-        <div class="col-md-8">
-            <div class="card mb-4">
+        <div class="col-12 col-lg-8">
+            <div class="card mb-4 profile-info-card">
                 <div class="card-header bg-maroon">
                     <h5 class="mb-0">Profile Information</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body profile-info-body">
                     <form action="update_profile.php" method="POST">
-                        <div class="row">
+                        <div class="row g-3 profile-form-grid">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Full Name</label>
                                 <input type="text" class="form-control" value="<?php echo htmlspecialchars($full_name); ?>" readonly>
@@ -135,15 +133,15 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                                 <label class="form-label">Registration Number</label>
                                 <input type="text" class="form-control" value="<?php echo htmlspecialchars($profile['registration_number'] ?? ''); ?>" readonly>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-8 mb-3">
                                 <label class="form-label">Email</label>
                                 <input type="email" class="form-control" value="<?php echo htmlspecialchars($profile['email'] ?? ''); ?>" readonly>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Phone Number</label>
                                 <input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($profile['phone'] ?? ''); ?>">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Programme Level</label>
                                 <select class="form-control" name="program_level" id="programLevel" required>
                                     <option value="">Select Level</option>
@@ -153,7 +151,7 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                                     <option value="PhD">PhD</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-8 mb-3">
                                 <label class="form-label">Specific Programme</label>
                                 <select class="form-control" name="specific_program" id="specificProgram" required disabled>
                                     <option value="">First select programme level</option>
@@ -168,7 +166,7 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                                     ?>
                                 </strong></small>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Campus</label>
                                 <select class="form-control" name="campus" required>
                                     <option value="">Select Campus</option>
@@ -179,16 +177,18 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                                     <option value="Fortportal" <?php echo ($profile['campus'] ?? '') == 'Fortportal' ? 'selected' : ''; ?>>Fort Portal</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Date of Birth</label>
                                 <input type="date" class="form-control" name="date_of_birth" value="<?php echo $profile['date_of_birth'] ?? ''; ?>" required>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Year of Intake</label>
                                 <input type="number" class="form-control" name="year_of_intake" min="2000" max="2026" value="<?php echo $profile['year_of_intake'] ?? ''; ?>" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-maroon">Update Profile</button>
+                        <div class="profile-actions mt-3">
+                            <button type="submit" class="btn btn-maroon px-4">Update Profile</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -340,10 +340,6 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
         </div>
     </div>
 
-    <!-- Logout Button -->
-    <div class="text-center mb-4">
-        <a href="../login/logout.php" class="btn btn-outline-danger">Logout</a>
-    </div>
 </div>
 
 <script>

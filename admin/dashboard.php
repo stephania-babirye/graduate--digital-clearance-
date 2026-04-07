@@ -71,29 +71,29 @@ while ($row = $roles_result->fetch_assoc()) {
     <?php endif; ?>
 
     <!-- Statistics Cards -->
-    <div class="row mb-4">
+    <div class="row mb-4 admin-dashboard-stats">
         <div class="col-md-3">
             <div class="stat-card stat-card-maroon">
                 <h3 class="stat-number stat-number-maroon"><?php echo $total_users; ?></h3>
-                <p class="mb-0">Total Users</p>
+                <p class="mb-0 admin-stat-label">Total Users</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card stat-card-blue">
                 <h3 class="stat-number stat-number-blue"><?php echo $total_students; ?></h3>
-                <p class="mb-0">Students</p>
+                <p class="mb-0 admin-stat-label">Students</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card stat-card-green">
                 <h3 class="stat-number stat-number-green"><?php echo $total_officers; ?></h3>
-                <p class="mb-0">Officers</p>
+                <p class="mb-0 admin-stat-label">Officers</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="stat-card stat-card-gold">
                 <h3 class="stat-number stat-number-gold"><?php echo $pending_applications; ?></h3>
-                <p class="mb-0">Pending Clearances</p>
+                <p class="mb-0 admin-stat-label">Pending Clearances</p>
             </div>
         </div>
     </div>
@@ -311,10 +311,6 @@ while ($row = $roles_result->fetch_assoc()) {
         </div>
     </div>
 
-    <!-- Logout Button -->
-    <div class="text-center mb-4">
-        <a href="../login/logout.php" class="btn btn-outline-danger">Logout</a>
-    </div>
 </div>
 
 <?php include '../includes/footer.php'; ?>

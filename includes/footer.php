@@ -1,5 +1,11 @@
-<footer class="bg-dark text-white text-center p-3 mt-5">
-    &copy; 2026 Uganda Martyrs University. All rights reserved.
+<div class="footer-logout-wrap">
+    <a href="/code%20final/login/logout.php" class="global-logout global-logout-bottom" aria-label="Logout">
+        Logout
+    </a>
+</div>
+
+<footer class="bg-dark text-white text-center p-3 mt-2">
+    <div>&copy; 2026 Uganda Martyrs University. All rights reserved.</div>
 </footer>
 
 <!-- Bootstrap JS -->

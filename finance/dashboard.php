@@ -212,9 +212,7 @@ $activity_result = $conn->query($activity_query);
     </div>
 
     <!-- Logout Button -->
-    <div class="text-center mb-4">
-        <a href="../login/logout.php" class="btn btn-outline-danger">Logout</a>
-    </div>
+        <!-- Duplicate Logout Button Removed -->
 </div>
 
 <!-- Student Details Modal -->

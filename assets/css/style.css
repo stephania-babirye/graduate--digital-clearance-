@@ -10,6 +10,69 @@ body {
     min-height: 100vh;
 }
 
+/* Global logout buttons */
+.global-logout {
+    color: #800000;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: none;
+}
+
+.global-logout:hover {
+    color: #a52a2a;
+}
+
+.global-logout-top {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 5;
+    transform: none;
+    white-space: nowrap;
+}
+
+.app-header {
+    position: relative;
+    padding-right: 120px !important;
+}
+
+.global-logout-bottom {
+    display: inline-block;
+    margin: 0;
+}
+
+.footer-logout-wrap {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+@media (max-width: 576px) {
+    .global-logout { font-size: 0.88rem; }
+
+    .global-logout-top {
+        top: 10px;
+        right: 10px;
+    }
+
+    .app-header {
+        padding-right: 90px !important;
+        padding-left: 0.75rem !important;
+    }
+
+    .footer-logout-wrap {
+        margin-top: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    footer {
+        margin-top: 1rem;
+        padding: 1rem 0.75rem;
+    }
+}
+
 /* University Colors */
 .bg-maroon {
     background-color: #A52A2A !important;
@@ -395,6 +458,21 @@ header h1 {
     background-clip: text;
 }
 
+/* Admin dashboard stat cards: keep number and label same size with equal spacing */
+.admin-dashboard-stats .stat-number,
+.admin-dashboard-stats .admin-stat-label {
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.admin-dashboard-stats .stat-number {
+    margin-bottom: 0.35rem;
+}
+
+.admin-dashboard-stats .admin-stat-label {
+    margin-bottom: 0;
+}
+
 /* Stat Icon Styles */
 .stat-icon {
     width: 32px;
@@ -538,10 +616,22 @@ section h3::after {
 @media (max-width: 768px) {
     header h1 {
         font-size: 1.5rem;
+        line-height: 1.2;
+        margin-right: 0;
     }
     
     .motto {
         font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .app-header {
+        padding-right: 100px !important;
+    }
+
+    .global-logout-top {
+        top: 12px;
+        right: 12px;
     }
     
     .hero {
@@ -584,6 +674,34 @@ section h3::after {
     border: 3px solid #800000;
     border-radius: 8px;
     margin: 1rem 0;
+}
+
+/* Student dashboard profile layout balance */
+.profile-info-body {
+    padding: 1.25rem;
+}
+
+.profile-form-grid .mb-3 {
+    margin-bottom: 0 !important;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 991.98px) {
+    .profile-info-body {
+        padding: 1rem;
+    }
+
+    .profile-actions {
+        justify-content: stretch;
+    }
+
+    .profile-actions .btn {
+        width: 100%;
+    }
 }
 
 /* Graduation Requirements List */
