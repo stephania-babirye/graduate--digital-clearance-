@@ -1,5 +1,6 @@
 <?php
 // Common header for all pages
+require_once __DIR__ . '/../config/base_url.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,7 @@
     <!-- Google Fonts - Celtic Style -->
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=MedievalSharp&display=swap" rel="stylesheet">
     <!-- Custom CSS (cache-busted to ensure latest styles load) -->
-    <link rel="stylesheet" href="/code%20final/assets/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css?v=<?php echo time(); ?>">
     <script>
         // Compatibility shim to avoid runtime errors from scripts expecting mgt.clearMarks().
         (function () {
