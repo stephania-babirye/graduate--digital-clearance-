@@ -32,10 +32,10 @@ require_once __DIR__ . '/../config/base_url.php';
 </head>
 <body>
 <header class="app-header p-3 text-center shadow-sm" style="background-color: #f5f5f5;">
-    <a href="/code%20final/login/logout.php" class="global-logout global-logout-top" aria-label="Logout">
+    <a href="<?php echo BASE_URL; ?>login/logout.php" class="global-logout global-logout-top" aria-label="Logout">
         Logout
     </a>
-    <img src="/code%20final/assets/images/logo.png" alt="UMU Logo" height="60" style="display:none;" onerror="this.style.display='none'">
+    <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="UMU Logo" height="60" style="display:none;" onerror="this.style.display='none'">
     <h1>
         <span style="color: #A52A2A;">U</span><span style="color: black;">ganda</span>
         <span style="color: #A52A2A;">M</span><span style="color: black;">artyrs</span>

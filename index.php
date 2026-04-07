@@ -20,8 +20,8 @@ include 'includes/header.php';
                         <h3 class="mb-4" style="font-size: 2rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Graduate Digital Clearance System</h3>
                         <p class="mb-4 lead" style="color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.7);">Welcome to the official clearance portal for UMU graduates. Complete your clearance process online with ease.</p>
                         <div class="d-flex justify-content-center gap-3">
-                            <a href="login/index.php" class="btn btn-gold btn-lg px-5 shadow">Login</a>
-                            <a href="login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">Check Clearance Status</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-gold btn-lg px-5 shadow">Login</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">Check Clearance Status</a>
                         </div>
                     </div>
                 </div>
@@ -35,8 +35,8 @@ include 'includes/header.php';
                         <h3 class="mb-4" style="font-size: 2rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Fast & Secure Clearance Process</h3>
                         <p class="mb-4 lead" style="color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.7);">Get your graduation clearance certificate with just a few clicks</p>
                         <div class="d-flex justify-content-center gap-3">
-                            <a href="login/index.php" class="btn btn-gold btn-lg px-5 shadow">Get Started</a>
-                            <a href="login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">Learn More</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-gold btn-lg px-5 shadow">Get Started</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,8 @@ include 'includes/header.php';
                         <h3 class="mb-4" style="font-size: 2rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Complete All Requirements Online</h3>
                         <p class="mb-4 lead" style="color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.7);">Track your clearance status in real-time from anywhere</p>
                         <div class="d-flex justify-content-center gap-3">
-                            <a href="login/index.php" class="btn btn-gold btn-lg px-5 shadow">Apply Now</a>
-                            <a href="login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">View Status</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-gold btn-lg px-5 shadow">Apply Now</a>
+                            <a href="<?php echo BASE_URL; ?>login/index.php" class="btn btn-outline-light btn-lg px-5 shadow">View Status</a>
                         </div>
                     </div>
                 </div>
