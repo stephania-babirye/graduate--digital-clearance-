@@ -9,7 +9,7 @@ if (!empty($forwardedProto)) {
 }
 
 $host = $_SERVER['HTTP_X_FORWARDED_HOST'] ?? ($_SERVER['HTTP_HOST'] ?? 'localhost');
-$host = trigm(explode(',', $host)[0]);
+$host = trim(explode(',', $host)[0]);
 
 $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '/';
 $pathParts = explode('/', trim(dirname($scriptPath), '/'));
