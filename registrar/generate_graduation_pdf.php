@@ -262,7 +262,7 @@ header('Content-Type: text/html; charset=utf-8');
     <div class="letterhead">
         <div class="letterhead-logo">UMU</div>
         <h1><?php echo htmlspecialchars($university_name); ?></h1>
-        <p class="motto">"To Serve and Build for Christ"</p>
+        <p class="motto">making a difference</p>
         <p class="contact">
             P.O. Box 5498, Kampala, Uganda | 
             Tel: <?php echo htmlspecialchars($university_phone); ?> | 
