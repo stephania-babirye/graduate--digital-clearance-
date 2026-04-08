@@ -71,27 +71,27 @@ header('Expires: 0');
         }
         .letterhead {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 28px;
             padding: 20px;
             border-bottom: 4px double #800000;
         }
         .letterhead-logo {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 15px;
             display: block;
             object-fit: contain;
         }
         .letterhead-logo-fallback {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 15px;
             background: linear-gradient(135deg, #800000, #FFD700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 54px;
+            font-size: 58px;
             color: white;
             font-weight: bold;
         }
@@ -115,7 +115,7 @@ header('Expires: 0');
         }
         .document-title {
             text-align: center;
-            margin: 30px 0;
+            margin: 24px 0;
             padding: 15px;
             background: linear-gradient(to right, #f8f9fa, #fff, #f8f9fa);
             border-left: 5px solid #800000;
@@ -137,7 +137,7 @@ header('Expires: 0');
         }
         .meta-info {
             text-align: center;
-            margin: 20px 0;
+            margin: 16px 0;
             padding: 10px;
             background: #f8f9fa;
             border-radius: 5px;
@@ -174,7 +174,7 @@ header('Expires: 0');
             background-color: #f0f0f0;
         }
         .summary-box {
-            margin: 30px 0;
+            margin: 24px 0;
             padding: 20px;
             background: linear-gradient(135deg, #fff5e6, #ffffff);
             border-left: 5px solid #FFD700;
@@ -197,9 +197,9 @@ header('Expires: 0');
 </head>
 <body>
     <div class="no-print" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
-        <button onclick="window.print()" style="padding: 12px 25px; background: #800000; color: white; border: none; cursor: pointer; margin-right: 10px; border-radius: 5px; font-weight: bold;">🖨️ Print / Save as PDF</button>
-        <a href="graduation_list.php" style="padding: 12px 25px; background: #666; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">← Back to List</a>
-        <span style="float: right; color: #666; padding-top: 12px;">💾 Use Print to save as PDF</span>
+        <button onclick="window.print()" style="padding: 12px 25px; background: #800000; color: white; border: none; cursor: pointer; margin-right: 10px; border-radius: 5px; font-weight: bold;">Print / Save as PDF</button>
+        <a href="graduation_list.php" style="padding: 12px 25px; background: #666; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Back to List</a>
+        <span style="float: right; color: #666; padding-top: 12px;">Use Print to save as PDF</span>
     </div>
 
     <!-- University Letterhead -->
