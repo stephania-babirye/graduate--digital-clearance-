@@ -16,7 +16,7 @@ include 'includes/header.php';
             <div class="carousel-item active">
                 <div class="hero-slide" style="background: linear-gradient(rgba(128, 0, 0, 0.2), rgba(218, 165, 32, 0.2)), url('<?php echo BASE_URL; ?>assets/images/graduation1.jpg') center/cover; min-height: 500px; display: flex; align-items: center; justify-content: center;">
                     <div class="text-center text-white px-4">
-                        <h2 class="mb-3 fw-bold" style="font-size: 3rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Uganda Martyrs University</h2>
+                        <h2 class="mb-3 fw-bold stonehenge-title" style="font-size: 3rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Uganda Martyrs University</h2>
                         <h3 class="mb-4" style="font-size: 2rem; color: white; text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.7);">Graduate Digital Clearance System</h3>
                         <p class="mb-4 lead" style="color: white; text-shadow: 2px 2px 6px rgba(0,0,0,0.9), 0 0 8px rgba(0,0,0,0.7);">Welcome to the official clearance portal for UMU graduates. Complete your clearance process online with ease.</p>
                         <div class="d-flex justify-content-center gap-3">

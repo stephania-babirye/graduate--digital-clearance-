@@ -3,11 +3,19 @@
    University Colors: Maroon (#800000) & Gold (#FFD700)
    ========================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap');
+
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
     min-height: 100vh;
+}
+
+.stonehenge-title {
+    font-family: 'Stonehenge', 'Cinzel Decorative', 'Times New Roman', serif;
+    font-weight: 900;
+    letter-spacing: 1.2px;
 }
 
 /* Global logout buttons */
