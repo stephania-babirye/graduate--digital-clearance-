@@ -3,17 +3,15 @@ session_start();
 include '../config/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $full_name = mysqli_real_escape_string($conn, $_POST['full_name']);
-    $reg_number = mysqli_real_escape_string($conn, $_POST['reg_number']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $specific_program = mysqli_real_escape_string($conn, $_POST['specific_program']);
-    $campus = mysqli_real_escape_string($conn, $_POST['campus']);
+    $account_type = isset($_POST['account_type']) ? mysqli_real_escape_string($conn, $_POST['account_type']) : 'student';
+    if (!in_array($account_type, ['student', 'staff'], true)) {
+        $account_type = 'student';
+    }
+    $full_name = mysqli_real_escape_string($conn, trim($_POST['full_name'] ?? ''));
+    $email = mysqli_real_escape_string($conn, trim($_POST['email'] ?? ''));
+    $phone = mysqli_real_escape_string($conn, trim($_POST['phone'] ?? ''));
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    
-    // Store full program in program_level field
-    $program_level = $specific_program;
 
     // Validate passwords match
     if ($password !== $confirm_password) {
@@ -22,11 +20,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Validate student email contains @stud
-    if (strpos($email, '@stud') === false) {
-        $_SESSION['error'] = "Student email must contain '@stud' (e.g., yourname@stud.umu.ac.ug)";
+    if (empty($full_name) || empty($email) || empty($phone)) {
+        $_SESSION['error'] = "Please fill all required fields!";
         header("Location: register.php");
         exit();
+    }
+
+    // Ensure database supports staff role and profiles for existing deployments.
+    $conn->query("ALTER TABLE users MODIFY role ENUM('student', 'staff', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin') NOT NULL");
+    $conn->query("CREATE TABLE IF NOT EXISTS staff_profiles (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        title VARCHAR(100) NOT NULL,
+        campus ENUM('Nkozi', 'Rubaga', 'Masaka', 'Ngetta', 'Fortportal') NOT NULL,
+        staff_id VARCHAR(50) UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )");
+
+    $role = 'student';
+    $reg_number = '';
+    $campus = '';
+    $program_level = '';
+    $staff_title = '';
+
+    if ($account_type === 'staff') {
+        $role = 'staff';
+        $staff_title = mysqli_real_escape_string($conn, trim($_POST['staff_title'] ?? ''));
+        $campus = mysqli_real_escape_string($conn, trim($_POST['campus'] ?? ''));
+        $staff_id = mysqli_real_escape_string($conn, trim($_POST['staff_id'] ?? ''));
+
+        if (empty($staff_title) || empty($campus) || empty($staff_id)) {
+            $_SESSION['error'] = "Please fill all required staff details!";
+            header("Location: register.php");
+            exit();
+        }
+
+        // Store staff ID in registration_number for compatibility with existing features.
+        $reg_number = $staff_id;
+
+        if (strpos(strtolower($email), '@umu') === false) {
+            $_SESSION['error'] = "Staff/office email must contain '@umu' (e.g., yourname@umu.ac.ug)";
+            header("Location: register.php");
+            exit();
+        }
+    } else {
+        $role = 'student';
+        $reg_number = mysqli_real_escape_string($conn, trim($_POST['reg_number'] ?? ''));
+        $specific_program = mysqli_real_escape_string($conn, trim($_POST['specific_program'] ?? ''));
+        $campus = mysqli_real_escape_string($conn, trim($_POST['campus'] ?? ''));
+
+        // Store full program in program_level field
+        $program_level = $specific_program;
+
+        if (empty($reg_number) || empty($specific_program) || empty($campus)) {
+            $_SESSION['error'] = "Please fill all required student details!";
+            header("Location: register.php");
+            exit();
+        }
+
+        // Validate student email contains @stud
+        if (strpos($email, '@stud') === false) {
+            $_SESSION['error'] = "Student email must contain '@stud' (e.g., yourname@stud.umu.ac.ug)";
+            header("Location: register.php");
+            exit();
+        }
     }
 
     // Check if email already exists
@@ -52,15 +111,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Insert user
     $sql = "INSERT INTO users (full_name, registration_number, email, phone, password, role, created_at) 
-            VALUES ('$full_name', '$reg_number', '$email', '$phone', '$hashed_password', 'student', NOW())";
+            VALUES ('$full_name', '$reg_number', '$email', '$phone', '$hashed_password', '$role', NOW())";
 
     if ($conn->query($sql) === TRUE) {
         $user_id = $conn->insert_id;
 
-        // Insert student profile
-        $profile_sql = "INSERT INTO student_profiles (user_id, program_level, campus, created_at) 
-                       VALUES ('$user_id', '$program_level', '$campus', NOW())";
-        $conn->query($profile_sql);
+        if ($role === 'student') {
+            // Insert student profile
+            $profile_sql = "INSERT INTO student_profiles (user_id, program_level, campus, created_at) 
+                           VALUES ('$user_id', '$program_level', '$campus', NOW())";
+            $conn->query($profile_sql);
+        } else {
+            // Insert staff profile
+            $staff_profile_sql = "INSERT INTO staff_profiles (user_id, title, campus, staff_id) 
+                                  VALUES ($user_id, '$staff_title', '$campus', '$reg_number')";
+            $conn->query($staff_profile_sql);
+        }
 
         $_SESSION['success'] = "Registration successful! Please login.";
         header("Location: index.php");

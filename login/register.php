@@ -5,7 +5,7 @@ include '../includes/header.php';
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h3 class="text-center mb-4">Student Registration</h3>
+            <h3 class="text-center mb-4">Account Registration</h3>
             
             <?php if (isset($_SESSION['error'])): ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -16,63 +16,17 @@ include '../includes/header.php';
                 </div>
             <?php endif; ?>
             
-            <form method="POST" action="process_register.php">
+            <form method="POST" action="process_register.php" id="registrationForm">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="full_name">Full Name</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="reg_number">Registration Number</label>
-                            <input type="text" class="form-control" id="reg_number" name="reg_number" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="yourname@stud.umu.ac.ug">
-                            <small class="form-text text-muted">⚠️ Must contain '@stud' (e.g., yourname@stud.umu.ac.ug)</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="program_level">Programme Level</label>
-                            <select class="form-control" id="program_level" name="program_level" required>
-                                <option value="">Select Level</option>
-                                <option value="Bachelor">Bachelor's Degree</option>
-                                <option value="Diploma">Diploma</option>
-                                <option value="Masters">Master's Degree</option>
-                                <option value="PhD">PhD</option>
+                            <label for="account_type">Register As</label>
+                            <select class="form-control" id="account_type" name="account_type" required>
+                                <option value="student" selected>Student</option>
+                                <option value="staff">Staff / Office</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="specific_program">Specific Programme</label>
-                            <select class="form-control" id="specific_program" name="specific_program" required disabled>
-                                <option value="">First select programme level</option>
-                            </select>
-                            <small class="form-text text-muted">Selected: <strong id="fullProgramme">Select your programme</strong></small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="campus">Campus</label>
@@ -86,6 +40,77 @@ include '../includes/header.php';
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="full_name">Full Name</label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 student-only">
+                        <div class="form-group">
+                            <label for="reg_number">Registration Number</label>
+                            <input type="text" class="form-control" id="reg_number" name="reg_number" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 staff-only" style="display:none;">
+                        <div class="form-group">
+                            <label for="staff_id">Staff ID Number</label>
+                            <input type="text" class="form-control" id="staff_id" name="staff_id">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="yourname@stud.umu.ac.ug">
+                            <small class="form-text text-muted" id="emailHelp">Students: use email with @stud, Staff: use email with @umu</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row student-only">
+                    <div class="col-md-6 student-only">
+                        <div class="form-group">
+                            <label for="program_level">Programme Level</label>
+                            <select class="form-control" id="program_level" name="program_level" required>
+                                <option value="">Select Level</option>
+                                <option value="Bachelor">Bachelor's Degree</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Masters">Master's Degree</option>
+                                <option value="PhD">PhD</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 student-only">
+                        <div class="form-group">
+                            <label for="specific_program">Specific Programme</label>
+                            <select class="form-control" id="specific_program" name="specific_program" required disabled>
+                                <option value="">First select programme level</option>
+                            </select>
+                            <small class="form-text text-muted">Selected: <strong id="fullProgramme">Select your programme</strong></small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row staff-only" style="display:none;">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="staff_title">Title / Position</label>
+                            <input type="text" class="form-control" id="staff_title" name="staff_title" placeholder="e.g., Administrator, Lecturer, Bursar">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">
@@ -115,10 +140,48 @@ include '../includes/header.php';
 <script>
 // Programme selection logic
 document.addEventListener('DOMContentLoaded', function() {
+    const accountType = document.getElementById('account_type');
     const programLevel = document.getElementById('program_level');
     const specificProgram = document.getElementById('specific_program');
-    const courseName = document.getElementById('course');
     const fullProgramme = document.getElementById('fullProgramme');
+    const emailInput = document.getElementById('email');
+    const emailHelp = document.getElementById('emailHelp');
+    const studentFields = document.querySelectorAll('.student-only');
+    const staffFields = document.querySelectorAll('.staff-only');
+    const regNumberInput = document.getElementById('reg_number');
+    const staffIdInput = document.getElementById('staff_id');
+    const staffTitleInput = document.getElementById('staff_title');
+
+    function toggleAccountFields() {
+        const type = accountType.value;
+        const isStudent = type === 'student';
+
+        studentFields.forEach(el => {
+            el.style.display = isStudent ? '' : 'none';
+        });
+
+        staffFields.forEach(el => {
+            el.style.display = isStudent ? 'none' : '';
+        });
+
+        regNumberInput.required = isStudent;
+        programLevel.required = isStudent;
+        specificProgram.required = isStudent;
+
+        staffIdInput.required = !isStudent;
+        staffTitleInput.required = !isStudent;
+
+        if (isStudent) {
+            emailInput.placeholder = 'yourname@stud.umu.ac.ug';
+            emailHelp.textContent = "Students: email must contain '@stud'.";
+        } else {
+            emailInput.placeholder = 'yourname@umu.ac.ug';
+            emailHelp.textContent = "Staff/Offices: email must contain '@umu'.";
+            specificProgram.disabled = true;
+            specificProgram.innerHTML = '<option value="">First select programme level</option>';
+            fullProgramme.textContent = 'Not applicable for staff';
+        }
+    }
     
     // Program options for each level
     const programOptions = {
@@ -192,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update preview when any field changes
     specificProgram.addEventListener('change', updatePreview);
+    accountType.addEventListener('change', toggleAccountFields);
     
     function updatePreview() {
         const program = specificProgram.value;
@@ -202,6 +266,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fullProgramme.textContent = 'Select your programme';
         }
     }
+
+    toggleAccountFields();
 });
 </script>
 

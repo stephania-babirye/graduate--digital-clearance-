@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 case 'student':
                     header("Location: ../student/dashboard.php");
                     break;
+                case 'staff':
+                    header("Location: ../staff/dashboard.php");
+                    break;
                 case 'finance':
                     header("Location: ../finance/dashboard.php");
                     break;
