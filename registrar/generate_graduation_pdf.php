@@ -254,7 +254,7 @@ header('Content-Type: text/html; charset=utf-8');
 
     <!-- University Letterhead -->
     <div class="letterhead">
-        <img src="../assets/images/C:\wamp64\www\code final\uploads\photos\images-removebg-preview.png" alt="UMU Logo" class="letterhead-logo">
+        <img src="../assets/images/logo.png" alt="UMU Logo" class="letterhead-logo">
         <h1><?php echo htmlspecialchars($university_name); ?></h1>
         <p class="motto">making a difference</p>
         <p class="contact">
