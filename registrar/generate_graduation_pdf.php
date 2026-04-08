@@ -76,22 +76,22 @@ header('Expires: 0');
             border-bottom: 4px double #800000;
         }
         .letterhead-logo {
-            width: 130px;
-            height: 130px;
+            width: 160px;
+            height: 160px;
             margin: 0 auto 15px;
             display: block;
             object-fit: contain;
         }
         .letterhead-logo-fallback {
-            width: 130px;
-            height: 130px;
+            width: 160px;
+            height: 160px;
             margin: 0 auto 15px;
             background: linear-gradient(135deg, #800000, #FFD700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 46px;
+            font-size: 54px;
             color: white;
             font-weight: bold;
         }
@@ -262,7 +262,7 @@ header('Expires: 0');
 
     <!-- Summary Box -->
     <div class="summary-box">
-        <strong>📊 Total Students Confirmed for Graduation: <?php echo $total_students; ?></strong>
+        <strong>Total Students Confirmed for Graduation: <?php echo $total_students; ?></strong>
         <p style="margin: 10px 0 0 0; color: #666; font-size: 13px;">
             All students listed above have successfully completed clearance requirements from Finance, Library, ICT, and Faculty departments.
         </p>
