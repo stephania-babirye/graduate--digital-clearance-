@@ -136,19 +136,17 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?php if ($app['ict_status'] == 'pending'): ?>
-                                    <button class="btn btn-sm btn-info mb-1" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
-                                        <i class="bi bi-eye"></i> View Details
-                                    </button>
+                                <button class="btn btn-sm btn-info mb-1" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
+                                    <i class="bi bi-eye"></i> View Details
+                                </button>
+                                <?php if ($app['ict_status'] != 'approved'): ?>
                                     <button class="btn btn-sm btn-success mb-1" onclick="showApproveModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
                                         <i class="fas fa-check"></i> Approve
                                     </button>
+                                <?php endif; ?>
+                                <?php if ($app['ict_status'] == 'pending'): ?>
                                     <button class="btn btn-sm btn-danger mb-1" onclick="showRejectModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
                                         <i class="fas fa-times"></i> Reject
-                                    </button>
-                                <?php else: ?>
-                                    <button class="btn btn-sm btn-info mb-1" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
-                                        <i class="bi bi-eye"></i> View Details
                                     </button>
                                 <?php endif; ?>
                             </td>

@@ -114,10 +114,12 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 <button class="btn btn-sm btn-info" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>', '<?php echo htmlspecialchars($app['email']); ?>', '<?php echo htmlspecialchars($app['phone'] ?? ''); ?>', '<?php echo htmlspecialchars($app['course'] ?? 'N/A'); ?>', '<?php echo htmlspecialchars($app['campus'] ?? 'N/A'); ?>')">
                                     View Details
                                 </button>
-                                <?php if ($app['library_status'] == 'pending'): ?>
+                                <?php if ($app['library_status'] != 'approved'): ?>
                                     <button class="btn btn-sm btn-success" onclick="approveApplication(<?php echo $app['id']; ?>)">
                                         Approve
                                     </button>
+                                <?php endif; ?>
+                                <?php if ($app['library_status'] == 'pending'): ?>
                                     <button class="btn btn-sm btn-danger" onclick="showRejectModal(<?php echo $app['id']; ?>)">
                                         Reject
                                     </button>

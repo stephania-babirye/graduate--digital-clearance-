@@ -141,10 +141,12 @@ $activity_result = $conn->query($activity_query);
                                 <button class="btn btn-sm btn-info" onclick="viewDetails(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>', '<?php echo htmlspecialchars($app['registration_number']); ?>')">
                                     View Details
                                 </button>
-                                <?php if ($app['finance_status'] == 'pending'): ?>
+                                <?php if ($app['finance_status'] != 'approved'): ?>
                                 <button class="btn btn-sm btn-success" onclick="approveApplication(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>')">
                                     <i class="fas fa-check"></i> Approve
                                 </button>
+                                <?php endif; ?>
+                                <?php if ($app['finance_status'] == 'pending'): ?>
                                 <button class="btn btn-sm btn-danger" onclick="showRejectModal(<?php echo $app['id']; ?>, '<?php echo htmlspecialchars($app['full_name']); ?>')">
                                     <i class="fas fa-times"></i> Reject
                                 </button>

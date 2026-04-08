@@ -26,6 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                          WHERE ca.id = $application_id";
             $app = $conn->query($app_query)->fetch_assoc();
             
+            // Keep department_approvals in sync and clear prior rejection reason.
+            $check_approval = "SELECT id FROM department_approvals WHERE application_id = $application_id AND department = 'library'";
+            if ($conn->query($check_approval)->num_rows > 0) {
+                $conn->query("UPDATE department_approvals 
+                              SET status = 'approved', rejection_reason = NULL, approved_by = {$_SESSION['user_id']}, approved_at = NOW(), updated_at = NOW() 
+                              WHERE application_id = $application_id AND department = 'library'");
+            } else {
+                $conn->query("INSERT INTO department_approvals (application_id, department, status, approved_by, approved_at) 
+                              VALUES ($application_id, 'library', 'approved', {$_SESSION['user_id']}, NOW())");
+            }
+
             // Log in approval history
             $history_query = "INSERT INTO approval_history (application_id, department, action, officer_id, officer_name) 
                              VALUES ($application_id, 'library', 'approved', {$_SESSION['user_id']}, '{$_SESSION['full_name']}')";

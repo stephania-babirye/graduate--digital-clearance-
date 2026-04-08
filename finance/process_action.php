@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $update_dept = "UPDATE department_approvals 
                        SET status = 'approved', 
                            approved_by = $officer_id,
+                           rejection_reason = NULL,
                            approved_at = NOW()
                        WHERE application_id = $application_id 
                        AND department = 'finance'";

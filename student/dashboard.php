@@ -211,6 +211,21 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                 <div class="alert alert-info">
                     <strong>Application Submitted:</strong> <?php echo date('F j, Y, g:i a', strtotime($clearance['applied_at'])); ?>
                 </div>
+                <?php
+                $has_rejection = $clearance['finance_status'] == 'rejected' ||
+                                 $clearance['library_status'] == 'rejected' ||
+                                 $clearance['ict_status'] == 'rejected' ||
+                                 $clearance['faculty_status'] == 'rejected' ||
+                                 $clearance['registrar_status'] == 'rejected';
+                ?>
+                <?php if ($has_rejection): ?>
+                    <div class="alert alert-warning">
+                        One or more departments rejected your clearance. After addressing the issue, you can re-apply.
+                    </div>
+                    <form action="apply_clearance.php" method="POST" onsubmit="return confirm('Re-apply for clearance and reset all department reviews to pending?');">
+                        <button type="submit" class="btn btn-warning btn-lg">Re-Apply for Clearance</button>
+                    </form>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>

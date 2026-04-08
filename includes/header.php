@@ -1,6 +1,13 @@
 <?php
 // Common header for all pages
 require_once __DIR__ . '/../config/base_url.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$currentPage = basename($_SERVER['PHP_SELF'] ?? '');
+$showGlobalLogout = isset($_SESSION['user_id']) && $currentPage !== 'index.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,9 +39,11 @@ require_once __DIR__ . '/../config/base_url.php';
 </head>
 <body>
 <header class="app-header p-3 text-center shadow-sm" style="background-color: #f5f5f5;">
+    <?php if ($showGlobalLogout): ?>
     <a href="<?php echo BASE_URL; ?>login/logout.php" class="global-logout global-logout-top" aria-label="Logout">
         Logout
     </a>
+    <?php endif; ?>
     <img src="<?php echo BASE_URL; ?>assets/images/logo.png" alt="UMU Logo" height="60" style="display:none;" onerror="this.style.display='none'">
     <h1>
         <span style="color: #A52A2A;">U</span><span style="color: black;">ganda</span>

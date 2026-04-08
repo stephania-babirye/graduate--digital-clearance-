@@ -1,9 +1,20 @@
-<?php require_once __DIR__ . '/../config/base_url.php'; ?>
+<?php
+require_once __DIR__ . '/../config/base_url.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$currentPage = basename($_SERVER['PHP_SELF'] ?? '');
+$showGlobalLogout = isset($_SESSION['user_id']) && $currentPage !== 'index.php';
+?>
+<?php if ($showGlobalLogout): ?>
 <div class="footer-logout-wrap">
     <a href="<?php echo BASE_URL; ?>login/logout.php" class="global-logout global-logout-bottom" aria-label="Logout">
         Logout
     </a>
 </div>
+<?php endif; ?>
 
 <footer class="bg-dark text-white text-center p-3 mt-2">
     <div>&copy; 2026 Uganda Martyrs University. All rights reserved.</div>

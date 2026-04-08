@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($conn->query($check_approval)->num_rows > 0) {
                 $approval_update = "UPDATE department_approvals 
                                    SET status = 'approved', 
+                                       rejection_reason = NULL,
                                        laptop_returned = '$laptop_returned', 
                                        equipment_damaged = '$equipment_damaged', 
                                        damage_description = '$damage_description',
