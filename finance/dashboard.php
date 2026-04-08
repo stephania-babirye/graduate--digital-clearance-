@@ -1,13 +1,14 @@
 <?php
 session_start();
 include '../config/db.php';
-include '../includes/header.php';
 
 // Check if user is logged in and is a finance officer
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'finance') {
     header("Location: ../login/index.php");
     exit();
 }
+
+include '../includes/header.php';
 
 $officer_id = $_SESSION['user_id'];
 $officer_name = $_SESSION['full_name'];
