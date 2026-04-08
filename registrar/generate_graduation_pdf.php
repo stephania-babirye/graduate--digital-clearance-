@@ -38,6 +38,16 @@ $university_email = (string) ($settings['university_email'] ?? $default_settings
 $university_phone = (string) ($settings['university_phone'] ?? $default_settings['university_phone']);
 $graduation_year = (int) ($settings['graduation_year'] ?? $default_settings['graduation_year']);
 
+// Build a resilient inline logo source so it renders on Render and in print/PDF contexts.
+$logo_data_uri = null;
+$logo_absolute_path = __DIR__ . '/../assets/images/logo.png';
+if (is_file($logo_absolute_path) && is_readable($logo_absolute_path)) {
+    $logo_binary = file_get_contents($logo_absolute_path);
+    if ($logo_binary !== false) {
+        $logo_data_uri = 'data:image/png;base64,' . base64_encode($logo_binary);
+    }
+}
+
 // Set headers for PDF download
 header('Content-Type: text/html; charset=utf-8');
 ?>
@@ -67,6 +77,19 @@ header('Content-Type: text/html; charset=utf-8');
             margin: 0 auto 15px;
             display: block;
             object-fit: contain;
+        }
+        .letterhead-logo-fallback {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #800000, #FFD700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            font-weight: bold;
         }
         .letterhead h1 {
             color: #800000;
@@ -254,7 +277,11 @@ header('Content-Type: text/html; charset=utf-8');
 
     <!-- University Letterhead -->
     <div class="letterhead">
-        <img src="../assets/images/logo.png" alt="UMU Logo" class="letterhead-logo">
+        <?php if ($logo_data_uri): ?>
+            <img src="<?php echo $logo_data_uri; ?>" alt="UMU Logo" class="letterhead-logo">
+        <?php else: ?>
+            <div class="letterhead-logo-fallback">UMU</div>
+        <?php endif; ?>
         <h1><?php echo htmlspecialchars($university_name); ?></h1>
         <p class="motto">making a difference</p>
         <p class="contact">
