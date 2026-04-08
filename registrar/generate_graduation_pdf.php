@@ -72,22 +72,22 @@ header('Content-Type: text/html; charset=utf-8');
             border-bottom: 4px double #800000;
         }
         .letterhead-logo {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             margin: 0 auto 15px;
             display: block;
             object-fit: contain;
         }
         .letterhead-logo-fallback {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             margin: 0 auto 15px;
             background: linear-gradient(135deg, #800000, #FFD700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 46px;
             color: white;
             font-weight: bold;
         }
@@ -180,83 +180,6 @@ header('Content-Type: text/html; charset=utf-8');
             color: #800000;
             font-size: 16px;
         }
-        .signature-section {
-            margin-top: 60px;
-            page-break-inside: avoid;
-        }
-        .signature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 40px;
-        }
-        .signature-box {
-            padding: 20px;
-            border: 2px solid #800000;
-            border-radius: 8px;
-            background: #fafafa;
-        }
-        .signature-title {
-            color: #800000;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-        .signature-line {
-            border-top: 2px solid #000;
-            margin-top: 50px;
-            padding-top: 8px;
-            text-align: center;
-        }
-        .signature-name {
-            font-weight: bold;
-            color: #800000;
-            margin-bottom: 5px;
-        }
-        .digital-signature {
-            text-align: center;
-            margin-top: 10px;
-            font-style: italic;
-            color: #666;
-            font-size: 11px;
-        }
-        .seal {
-            text-align: center;
-            margin-top: 20px;
-            padding: 15px;
-            border: 3px double #800000;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 30px auto;
-            background: radial-gradient(circle, #FFD700, #FFA500);
-        }
-        .seal-text {
-            font-weight: bold;
-            color: #800000;
-            font-size: 11px;
-            text-align: center;
-            line-height: 1.3;
-        }
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 11px;
-            color: #666;
-            border-top: 3px double #800000;
-            padding-top: 20px;
-            page-break-inside: avoid;
-        }
-        .footer .confidential {
-            color: #800000;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
         @media print {
             .no-print {
                 display: none;
@@ -338,51 +261,6 @@ header('Content-Type: text/html; charset=utf-8');
         <strong>📊 Total Students Confirmed for Graduation: <?php echo $total_students; ?></strong>
         <p style="margin: 10px 0 0 0; color: #666; font-size: 13px;">
             All students listed above have successfully completed clearance requirements from Finance, Library, ICT, and Faculty departments.
-        </p>
-    </div>
-
-    <!-- Official Seal -->
-    <div class="seal">
-        <div class="seal-text">
-            OFFICIAL SEAL<br>
-            <?php echo htmlspecialchars($university_name); ?><br>
-            <?php echo $graduation_year; ?>
-        </div>
-    </div>
-
-    <!-- Signature Section -->
-    <div class="signature-section">
-        <div class="signature-grid">
-            <div class="signature-box">
-                <div class="signature-title">Academic Registrar</div>
-                <div class="signature-line">
-                    <div class="signature-name"><?php echo htmlspecialchars($_SESSION['full_name']); ?></div>
-                    <div>Academic Registrar</div>
-                    <div style="margin-top: 10px; font-size: 12px;">Date: <?php echo date('F j, Y'); ?></div>
-                </div>
-                <div class="digital-signature">
-                    🔒 Digitally signed on <?php echo date('Y-m-d H:i:s'); ?>
-                </div>
-            </div>
-            <div class="signature-box">
-                <div class="signature-title">Vice Chancellor</div>
-                <div class="signature-line">
-                    <div class="signature-name">_______________________</div>
-                    <div>Vice Chancellor</div>
-                    <div style="margin-top: 10px; font-size: 12px;">Date: _________________</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p class="confidential">⚠️ CONFIDENTIAL DOCUMENT</p>
-        <p><strong><?php echo htmlspecialchars($settings['university_name']); ?></strong></p>
-        <p>This is an official document generated by the Graduate Digital Clearance System</p>
-        <p style="margin-top: 10px;">Document ID: GRAD-<?php echo $settings['graduation_year']; ?>-<?php echo date('YmdHis'); ?></p>
-        <p style="margin-top: 15px; font-size: 10px; color: #999;">
-            Generated automatically. No signature required for digital copy. For official use only.
         </p>
     </div>
 
