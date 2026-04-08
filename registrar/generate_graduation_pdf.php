@@ -76,22 +76,22 @@ header('Expires: 0');
             border-bottom: 4px double #800000;
         }
         .letterhead-logo {
-            width: 180px;
-            height: 180px;
+            width: 210px;
+            height: 210px;
             margin: 0 auto 15px;
             display: block;
             object-fit: contain;
         }
         .letterhead-logo-fallback {
-            width: 180px;
-            height: 180px;
+            width: 210px;
+            height: 210px;
             margin: 0 auto 15px;
             background: linear-gradient(135deg, #800000, #FFD700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 58px;
+            font-size: 64px;
             color: white;
             font-weight: bold;
         }
