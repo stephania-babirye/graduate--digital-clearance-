@@ -51,6 +51,6 @@ $showGlobalLogout = isset($_SESSION['user_id']) && $currentPage !== 'index.php';
         <span style="color: #A52A2A;">U</span><span style="color: black;">niversity</span>
     </h1>
     <p class="motto" style="color: #A52A2A; font-style: italic;">
-        making the difference
+        making a difference
     </p>
 </header>

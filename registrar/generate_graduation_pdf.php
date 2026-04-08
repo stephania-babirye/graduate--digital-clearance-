@@ -65,14 +65,8 @@ header('Content-Type: text/html; charset=utf-8');
             width: 100px;
             height: 100px;
             margin: 0 auto 15px;
-            background: linear-gradient(135deg, #800000, #FFD700);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            font-weight: bold;
+            display: block;
+            object-fit: contain;
         }
         .letterhead h1 {
             color: #800000;
@@ -260,7 +254,7 @@ header('Content-Type: text/html; charset=utf-8');
 
     <!-- University Letterhead -->
     <div class="letterhead">
-        <div class="letterhead-logo">UMU</div>
+        <img src="../assets/images/C:\wamp64\www\code final\uploads\photos\images-removebg-preview.png" alt="UMU Logo" class="letterhead-logo">
         <h1><?php echo htmlspecialchars($university_name); ?></h1>
         <p class="motto">making a difference</p>
         <p class="contact">
@@ -272,7 +266,7 @@ header('Content-Type: text/html; charset=utf-8');
 
     <!-- Document Title -->
     <div class="document-title">
-        <h2>📜 Official Graduation List</h2>
+        <h2>Official Graduation List</h2>
         <div class="year">Graduation Year: <?php echo $graduation_year; ?></div>
     </div>
 
