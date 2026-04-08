@@ -8,14 +8,27 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
-    $user_id = $_SESSION['user_id'];
+    $user_id = (int) $_SESSION['user_id'];
     $file = $_FILES['photo'];
     
     // Validate file
     $allowed_types = ['image/jpeg', 'image/png'];
     $max_size = 2097152; // 2MB
+
+    if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+        $_SESSION['error'] = "Upload failed. Please try again.";
+        header("Location: dashboard.php");
+        exit();
+    }
+
+    // Do not trust browser-reported MIME type.
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $detected_type = $finfo ? finfo_file($finfo, $file['tmp_name']) : null;
+    if ($finfo) {
+        finfo_close($finfo);
+    }
     
-    if (!in_array($file['type'], $allowed_types)) {
+    if (!$detected_type || !in_array($detected_type, $allowed_types, true)) {
         $_SESSION['error'] = "Only JPG and PNG files are allowed!";
         header("Location: dashboard.php");
         exit();
@@ -27,14 +40,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
         exit();
     }
     
-    // Create upload directory if not exists
-    $upload_dir = '../uploads/photos/';
-    if (!file_exists($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
+    // Create upload directory if it does not exist.
+    $upload_dir = __DIR__ . '/../uploads/photos/';
+    if (!is_dir($upload_dir)) {
+        @mkdir($upload_dir, 0775, true);
+    }
+
+    // Ensure upload directory is writable on shared/hosted environments.
+    if (!is_writable($upload_dir)) {
+        @chmod($upload_dir, 0775);
+    }
+
+    if (!is_writable($upload_dir)) {
+        $_SESSION['error'] = "Upload directory is not writable. Please contact admin.";
+        header("Location: dashboard.php");
+        exit();
     }
     
     // Generate unique filename
-    $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if ($extension === 'jpeg') {
+        $extension = 'jpg';
+    }
+
+    if (!in_array($extension, ['jpg', 'png'], true)) {
+        $_SESSION['error'] = "Invalid file extension. Use JPG or PNG.";
+        header("Location: dashboard.php");
+        exit();
+    }
+
     $filename = 'student_' . $user_id . '_' . time() . '.' . $extension;
     $filepath = $upload_dir . $filename;
     
@@ -43,8 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
     $old_photo_result = $conn->query($old_photo_query);
     if ($old_photo_result && $old_photo_result->num_rows > 0) {
         $old_photo = $old_photo_result->fetch_assoc()['photo_path'];
-        if ($old_photo && file_exists('../' . $old_photo)) {
-            unlink('../' . $old_photo);
+        if ($old_photo) {
+            $old_photo_abs = __DIR__ . '/../' . ltrim($old_photo, '/');
+            if (file_exists($old_photo_abs)) {
+                @unlink($old_photo_abs);
+            }
         }
     }
     
