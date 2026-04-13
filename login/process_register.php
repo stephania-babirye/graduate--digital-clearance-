@@ -26,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
+    if (!preg_match('/^\d+$/', $phone)) {
+        $_SESSION['error'] = "Phone number must contain digits only.";
+        header("Location: register.php");
+        exit();
+    }
+
     // Ensure database supports staff role and profiles for existing deployments.
     $conn->query("ALTER TABLE users MODIFY role ENUM('student', 'staff', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin') NOT NULL");
     $conn->query("CREATE TABLE IF NOT EXISTS staff_profiles (

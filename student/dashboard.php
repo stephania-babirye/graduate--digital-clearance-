@@ -45,6 +45,10 @@ $clearance = $clearance_result->num_rows > 0 ? $clearance_result->fetch_assoc() 
 $graduation_query = "SELECT * FROM graduation_list WHERE user_id = $user_id";
 $graduation_result = $conn->query($graduation_query);
 $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
+
+$current_year = (int) date('Y');
+$min_intake_year = $current_year - 10;
+$max_dob = (new DateTime('today'))->modify('-17 years')->format('Y-m-d');
 ?>
 
 <div class="container mt-4 mb-5">
@@ -139,7 +143,7 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($profile['phone'] ?? ''); ?>">
+                                <input type="text" class="form-control" name="phone" inputmode="numeric" pattern="\d+" title="Phone number must contain digits only" value="<?php echo htmlspecialchars($profile['phone'] ?? ''); ?>">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Programme Level</label>
@@ -179,11 +183,11 @@ $on_graduation_list = $graduation_result && $graduation_result->num_rows > 0;
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Date of Birth</label>
-                                <input type="date" class="form-control" name="date_of_birth" value="<?php echo $profile['date_of_birth'] ?? ''; ?>" required>
+                                <input type="date" class="form-control" name="date_of_birth" max="<?php echo htmlspecialchars($max_dob); ?>" value="<?php echo $profile['date_of_birth'] ?? ''; ?>" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Year of Intake</label>
-                                <input type="number" class="form-control" name="year_of_intake" min="2000" max="2026" value="<?php echo $profile['year_of_intake'] ?? ''; ?>" required>
+                                <input type="number" class="form-control" name="year_of_intake" inputmode="numeric" pattern="\d{4}" min="<?php echo $min_intake_year; ?>" max="<?php echo $current_year; ?>" value="<?php echo $profile['year_of_intake'] ?? ''; ?>" required>
                             </div>
                         </div>
                         <div class="profile-actions mt-3">
@@ -392,6 +396,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const programLevel = document.getElementById('programLevel');
     const specificProgram = document.getElementById('specificProgram');
     const fullProgramme = document.getElementById('fullProgramme');
+    const profileForm = document.querySelector('form[action="update_profile.php"]');
+    const phoneInput = profileForm ? profileForm.querySelector('input[name="phone"]') : null;
+    const dobInput = profileForm ? profileForm.querySelector('input[name="date_of_birth"]') : null;
+    const intakeInput = profileForm ? profileForm.querySelector('input[name="year_of_intake"]') : null;
+    const minIntakeYear = <?php echo $min_intake_year; ?>;
+    const maxIntakeYear = <?php echo $current_year; ?>;
+    const maxDob = '<?php echo $max_dob; ?>';
     
     // Program options for each level
     const programOptions = {
@@ -465,6 +476,50 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update preview when specific program changes
     specificProgram.addEventListener('change', updatePreview);
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    }
+
+    if (intakeInput) {
+        intakeInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '').slice(0, 4);
+        });
+    }
+
+    if (profileForm) {
+        profileForm.addEventListener('submit', function(event) {
+            const phoneValue = phoneInput ? phoneInput.value.trim() : '';
+            const dobValue = dobInput ? dobInput.value : '';
+            const intakeValue = intakeInput ? intakeInput.value.trim() : '';
+
+            if (phoneValue !== '' && !/^\d+$/.test(phoneValue)) {
+                event.preventDefault();
+                alert('Phone number must contain digits only.');
+                return;
+            }
+
+            if (!dobValue || dobValue > maxDob) {
+                event.preventDefault();
+                alert('Date of birth must be at least 17 years ago.');
+                return;
+            }
+
+            if (!/^\d{4}$/.test(intakeValue)) {
+                event.preventDefault();
+                alert('Year of intake must be a 4-digit year.');
+                return;
+            }
+
+            const intakeYear = parseInt(intakeValue, 10);
+            if (intakeYear < minIntakeYear || intakeYear > maxIntakeYear) {
+                event.preventDefault();
+                alert('Year of intake must be between ' + minIntakeYear + ' and ' + maxIntakeYear + '.');
+            }
+        });
+    }
     
     function updatePreview() {
         const program = specificProgram.value;

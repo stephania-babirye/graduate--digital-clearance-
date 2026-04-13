@@ -74,7 +74,7 @@ include '../includes/header.php';
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <input type="tel" class="form-control" id="phone" name="phone" inputmode="numeric" pattern="\d+" title="Phone number must contain digits only" required>
                         </div>
                     </div>
                 </div>
@@ -145,12 +145,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const specificProgram = document.getElementById('specific_program');
     const fullProgramme = document.getElementById('fullProgramme');
     const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
     const emailHelp = document.getElementById('emailHelp');
     const studentFields = document.querySelectorAll('.student-only');
     const staffFields = document.querySelectorAll('.staff-only');
     const regNumberInput = document.getElementById('reg_number');
     const staffIdInput = document.getElementById('staff_id');
     const staffTitleInput = document.getElementById('staff_title');
+    const registrationForm = document.getElementById('registrationForm');
 
     function toggleAccountFields() {
         const type = accountType.value;
@@ -265,6 +267,22 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             fullProgramme.textContent = 'Select your programme';
         }
+    }
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    }
+
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', function(event) {
+            const phoneValue = phoneInput ? phoneInput.value.trim() : '';
+            if (!/^\d+$/.test(phoneValue)) {
+                event.preventDefault();
+                alert('Phone number must contain digits only.');
+            }
+        });
     }
 
     toggleAccountFields();
