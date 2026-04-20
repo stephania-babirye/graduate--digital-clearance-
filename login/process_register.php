@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $full_name = mysqli_real_escape_string($conn, trim($_POST['full_name'] ?? ''));
     $email = strtolower(trim($_POST['email'] ?? ''));
     $email = mysqli_real_escape_string($conn, $email);
-    $phone = mysqli_real_escape_string($conn, trim($_POST['phone'] ?? ''));
+    $phone_input = trim($_POST['phone'] ?? '');
+    $phone = mysqli_real_escape_string($conn, $phone_input);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    if (!preg_match('/^\d+$/', $phone)) {
+    if (!preg_match('/^\d+$/', $phone_input)) {
         $_SESSION['error'] = "Phone number must contain digits only.";
         header("Location: register.php");
         exit();
@@ -104,11 +105,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
+    // Check if phone number already exists
+    $check_phone = "SELECT id FROM users WHERE phone = '$phone'";
+    $result = $conn->query($check_phone);
+    if ($result->num_rows > 0) {
+        $_SESSION['error'] = "Phone number already registered!";
+        header("Location: register.php");
+        exit();
+    }
+
     // Check if registration number already exists
     $check_reg = "SELECT id FROM users WHERE registration_number = '$reg_number'";
     $result = $conn->query($check_reg);
     if ($result->num_rows > 0) {
-        $_SESSION['error'] = "Registration number already exists!";
+        $_SESSION['error'] = ($account_type === 'staff') ? "Staff ID already exists!" : "Registration number already exists!";
         header("Location: register.php");
         exit();
     }

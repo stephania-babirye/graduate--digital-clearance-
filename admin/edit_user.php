@@ -32,24 +32,30 @@ if (!$user) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $full_name = mysqli_real_escape_string($conn, $_POST['full_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $phone_input = trim($_POST['phone'] ?? '');
+    $phone = mysqli_real_escape_string($conn, $phone_input);
     $allowed_roles = ['student', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin'];
     $submitted_role = $_POST['role'] ?? $user['role'];
     $role = in_array($submitted_role, $allowed_roles, true) ? $submitted_role : $user['role'];
     $role = mysqli_real_escape_string($conn, $role);
-    $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
+    $registration_input = trim($_POST['registration_number'] ?? '');
+    $registration_number = mysqli_real_escape_string($conn, $registration_input);
     
     // Check if email exists for other users
     $check_email = "SELECT id FROM users WHERE email = '$email' AND id != $user_id";
     if ($conn->query($check_email)->num_rows > 0) {
         $_SESSION['error'] = "Email already exists!";
+    } elseif ($phone_input !== '' && $conn->query("SELECT id FROM users WHERE phone = '$phone' AND id != $user_id")->num_rows > 0) {
+        $_SESSION['error'] = "Phone number already exists!";
+    } elseif ($registration_input !== '' && $conn->query("SELECT id FROM users WHERE registration_number = '$registration_number' AND id != $user_id")->num_rows > 0) {
+        $_SESSION['error'] = ($submitted_role === 'student') ? "Registration number already exists!" : "Staff ID already exists!";
     } else {
         $update_user = "UPDATE users SET 
                        full_name = '$full_name', 
                        email = '$email', 
                        phone = '$phone', 
                        role = '$role', 
-                       registration_number = " . ($registration_number ? "'$registration_number'" : "NULL") . " 
+                       registration_number = " . ($registration_input !== '' ? "'$registration_number'" : "NULL") . " 
                        WHERE id = $user_id";
         
         if ($conn->query($update_user)) {

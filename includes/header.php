@@ -16,14 +16,16 @@ $showGlobalLogout = isset($_SESSION['user_id']) && $currentPage !== 'index.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graduate Digital Clearance System - Uganda Martyrs University</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link id="bootstrap-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" onerror="document.documentElement.classList.add('no-bootstrap')">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts - Celtic Style -->
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=MedievalSharp&display=swap" rel="stylesheet">
+    <!-- Custom CSS (cache-busted to ensure latest styles load) -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css?v=<?php echo time(); ?>">
     <script>
-        // If Bootstrap CSS fails to load (e.g., offline/CDN issue), enable local fallback styles.
-        (function () {
+        // If CDN Bootstrap is blocked or unavailable, enable fallback styles after page load.
+        window.addEventListener('load', function () {
             var hasBootstrapVars = getComputedStyle(document.documentElement)
                 .getPropertyValue('--bs-body-font-family')
                 .trim() !== '';
@@ -31,10 +33,8 @@ $showGlobalLogout = isset($_SESSION['user_id']) && $currentPage !== 'index.php';
             if (!hasBootstrapVars) {
                 document.documentElement.classList.add('no-bootstrap');
             }
-        })();
+        });
     </script>
-    <!-- Custom CSS (cache-busted to ensure latest styles load) -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css?v=<?php echo time(); ?>">
     <script>
         // Compatibility shim to avoid runtime errors from scripts expecting mgt.clearMarks().
         (function () {

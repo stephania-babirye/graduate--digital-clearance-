@@ -12,10 +12,12 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $full_name = mysqli_real_escape_string($conn, $_POST['full_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
+    $phone_input = trim($_POST['phone'] ?? '');
+    $phone = mysqli_real_escape_string($conn, $phone_input);
     $role = mysqli_real_escape_string($conn, $_POST['role']);
     $password = $_POST['password'];
-    $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
+    $registration_input = trim($_POST['registration_number'] ?? '');
+    $registration_number = mysqli_real_escape_string($conn, $registration_input);
     
     // Validate student email contains @stud
     if ($role == 'student' && strpos($email, '@stud') === false) {
@@ -24,12 +26,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if email exists
     elseif ($conn->query("SELECT id FROM users WHERE email = '$email'")->num_rows > 0) {
         $_SESSION['error'] = "Email already exists!";
+    }
+    // Check if phone already exists (only for non-empty phone)
+    elseif ($phone_input !== '' && $conn->query("SELECT id FROM users WHERE phone = '$phone'")->num_rows > 0) {
+        $_SESSION['error'] = "Phone number already exists!";
+    }
+    // Check if registration/staff ID already exists (only for non-empty value)
+    elseif ($registration_input !== '' && $conn->query("SELECT id FROM users WHERE registration_number = '$registration_number'")->num_rows > 0) {
+        $_SESSION['error'] = ($role === 'student') ? "Registration number already exists!" : "Staff ID already exists!";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
         $insert_user = "INSERT INTO users (full_name, email, phone, password, role, registration_number, is_active) 
                        VALUES ('$full_name', '$email', '$phone', '$hashed_password', '$role', " . 
-                       ($registration_number ? "'$registration_number'" : "NULL") . ", 1)";
+                       ($registration_input !== '' ? "'$registration_number'" : "NULL") . ", 1)";
         
         if ($conn->query($insert_user)) {
             $user_id = $conn->insert_id;
@@ -162,9 +172,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <small class="text-muted" id="roleDescription">Select a role to see description</small>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Registration Number</label>
+                        <label class="form-label" id="identifierLabel">Registration Number</label>
                         <input type="text" class="form-control" name="registration_number" id="regNumber">
-                        <small class="text-muted"><strong>Required for students only</strong></small>
+                        <small class="text-muted" id="identifierHelp"><strong>Required for students only</strong></small>
                     </div>
                 </div>
 
@@ -223,6 +233,8 @@ function toggleStudentFields() {
     const studentFields = document.getElementById('studentFields');
     const roleDescription = document.getElementById('roleDescription');
     const regNumber = document.getElementById('regNumber');
+    const identifierLabel = document.getElementById('identifierLabel');
+    const identifierHelp = document.getElementById('identifierHelp');
     
     // Role descriptions
     const descriptions = {
@@ -246,9 +258,13 @@ function toggleStudentFields() {
     if (role === 'student') {
         studentFields.style.display = 'block';
         regNumber.required = true;
+        identifierLabel.textContent = 'Registration Number';
+        identifierHelp.innerHTML = '<strong>Required for students only</strong>';
     } else {
         studentFields.style.display = 'none';
         regNumber.required = false;
+        identifierLabel.textContent = 'Staff ID';
+        identifierHelp.innerHTML = '<strong>Use staff/office ID for non-student roles</strong>';
     }
 }
 </script>

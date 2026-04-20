@@ -18,7 +18,7 @@ $total_users = $conn->query($total_users_query)->fetch_assoc()['count'];
 $total_students_query = "SELECT COUNT(*) as count FROM users WHERE role = 'student'";
 $total_students = $conn->query($total_students_query)->fetch_assoc()['count'];
 
-$total_officers_query = "SELECT COUNT(*) as count FROM users WHERE role != 'student' AND role != 'admin'";
+$total_officers_query = "SELECT COUNT(*) as count FROM users WHERE role IN ('finance', 'library', 'ict', 'dean', 'registrar')";
 $total_officers = $conn->query($total_officers_query)->fetch_assoc()['count'];
 
 $pending_role_assignments_query = "SELECT COUNT(*) as count FROM users WHERE role = 'staff'";

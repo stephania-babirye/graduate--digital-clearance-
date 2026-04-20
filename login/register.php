@@ -15,8 +15,11 @@ include '../includes/header.php';
                     </button>
                 </div>
             <?php endif; ?>
-            
-            <form method="POST" action="process_register.php" id="registrationForm">
+
+            <div class="register-form-shell">
+            <form method="POST" action="process_register.php" id="registrationForm" autocomplete="off">
+                <input type="text" name="_register_username" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+                <input type="password" name="_register_password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -46,19 +49,19 @@ include '../includes/header.php';
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="full_name">Full Name</label>
-                            <input type="text" class="form-control" id="full_name" name="full_name" required>
+                            <input type="text" class="form-control" id="full_name" name="full_name" autocomplete="name" required>
                         </div>
                     </div>
                     <div class="col-md-6 student-only">
                         <div class="form-group">
                             <label for="reg_number">Registration Number</label>
-                            <input type="text" class="form-control" id="reg_number" name="reg_number" required>
+                            <input type="text" class="form-control" id="reg_number" name="reg_number" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-md-6 staff-only" style="display:none;">
                         <div class="form-group">
                             <label for="staff_id">Staff ID Number</label>
-                            <input type="text" class="form-control" id="staff_id" name="staff_id">
+                            <input type="text" class="form-control" id="staff_id" name="staff_id" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -67,14 +70,14 @@ include '../includes/header.php';
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="yourname@stud.umu.ac.ug">
+                            <input type="email" class="form-control" id="email" name="email" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" required placeholder="yourname@stud.umu.ac.ug">
                             <small class="form-text text-muted" id="emailHelp">Students: use @stud.umu.ac.ug, Staff: use @umu.ac.ug (admin approval required)</small>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" inputmode="numeric" pattern="\d+" title="Phone number must contain digits only" required>
+                            <input type="tel" class="form-control" id="phone" name="phone" autocomplete="off" inputmode="numeric" pattern="\d+" title="Phone number must contain digits only" required>
                         </div>
                     </div>
                 </div>
@@ -116,22 +119,23 @@ include '../includes/header.php';
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" required>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="confirm_password">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" autocomplete="new-password" required>
                         </div>
                     </div>
                 </div>
 
                 <button type="submit" class="btn btn-maroon btn-block">Register</button>
             </form>
-            
+
             <div class="text-center mt-3">
                 <p>Already have an account? <a href="index.php" class="font-weight-bold">Login Here</a></p>
+            </div>
             </div>
         </div>
     </div>
@@ -276,6 +280,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (registrationForm) {
+        const clearSensitiveFields = function() {
+            if (emailInput) emailInput.value = '';
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm_password');
+            if (passwordInput) passwordInput.value = '';
+            if (confirmPasswordInput) confirmPasswordInput.value = '';
+        };
+
+        // Some browsers apply autofill after initial render, so clear twice.
+        clearSensitiveFields();
+        setTimeout(clearSensitiveFields, 150);
+
         registrationForm.addEventListener('submit', function(event) {
             const phoneValue = phoneInput ? phoneInput.value.trim() : '';
             if (!/^\d+$/.test(phoneValue)) {

@@ -68,7 +68,7 @@ $users_result = $conn->query($users_query);
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Reg. Number</th>
+                            <th>Identifier</th>
                             <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -90,7 +90,18 @@ $users_result = $conn->query($users_query);
                                     <?php echo $user['role'] === 'staff' ? 'Pending Assignment' : ucfirst($user['role']); ?>
                                 </span>
                             </td>
-                            <td><?php echo htmlspecialchars($user['registration_number'] ?? '-'); ?></td>
+                            <td>
+                                <?php
+                                $identifier = trim((string)($user['registration_number'] ?? ''));
+                                if ($identifier === '') {
+                                    echo '-';
+                                } elseif ($user['role'] === 'student') {
+                                    echo 'REG: ' . htmlspecialchars($identifier);
+                                } else {
+                                    echo 'STAFF ID: ' . htmlspecialchars($identifier);
+                                }
+                                ?>
+                            </td>
                             <td>
                                 <?php if ($user['is_active']): ?>
                                     <span class="badge bg-success">Active</span>
@@ -104,7 +115,7 @@ $users_result = $conn->query($users_query);
                                 <?php if ($user['role'] === 'staff'): ?>
                                     <form method="POST" action="assign_role.php" class="d-inline-flex align-items-center ms-1">
                                         <input type="hidden" name="user_id" value="<?php echo (int)$user['id']; ?>">
-                                        <select name="assigned_role" class="form-select form-select-sm me-1" required>
+                                        <select name="assigned_role" class="form-select form-select-sm me-1 role-assign-select" style="border: 2px solid #800000 !important; background: #fff2e6 !important;" required>
                                             <option value="">Select Role</option>
                                             <option value="finance">Finance</option>
                                             <option value="library">Library</option>
