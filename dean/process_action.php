@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         SET faculty_status = 'approved', updated_at = NOW()
                         WHERE id = $application_id";
         
-        if ($conn->query($update_query)) {
+        if ($conn->query($update
             // Get application details
             $app_query = "SELECT ca.*, u.full_name 
                          FROM clearance_applications ca

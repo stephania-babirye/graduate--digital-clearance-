@@ -5,11 +5,191 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap');
 
+/* Bootstrap fallback styles used only when CDN Bootstrap CSS is unavailable */
+.no-bootstrap .container {
+    width: 100%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+}
+
+.no-bootstrap .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+.no-bootstrap .row > [class*='col-'],
+.no-bootstrap .row > [class*=' col-'] {
+    width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .no-bootstrap .col-md-3 { width: 25%; }
+    .no-bootstrap .col-md-4 { width: 33.333333%; }
+    .no-bootstrap .col-md-5 { width: 41.666667%; }
+    .no-bootstrap .col-md-6 { width: 50%; }
+    .no-bootstrap .col-md-8 { width: 66.666667%; }
+    .no-bootstrap .col-md-10 { width: 83.333333%; }
+    .no-bootstrap .col-md-12 { width: 100%; }
+}
+
+@media (min-width: 992px) {
+    .no-bootstrap .col-lg-4 { width: 33.333333%; }
+}
+
+.no-bootstrap .justify-content-center { justify-content: center; }
+.no-bootstrap .text-center { text-align: center; }
+.no-bootstrap .text-end { text-align: right; }
+.no-bootstrap .font-weight-bold { font-weight: 700; }
+
+.no-bootstrap .mt-2 { margin-top: 0.5rem; }
+.no-bootstrap .mt-3 { margin-top: 1rem; }
+.no-bootstrap .mt-5 { margin-top: 3rem; }
+.no-bootstrap .mb-0 { margin-bottom: 0; }
+.no-bootstrap .mb-3 { margin-bottom: 1rem; }
+.no-bootstrap .mb-4 { margin-bottom: 1.5rem; }
+.no-bootstrap .mb-5 { margin-bottom: 3rem; }
+.no-bootstrap .p-3 { padding: 1rem; }
+.no-bootstrap .p-4 { padding: 1.5rem; }
+.no-bootstrap .w-100 { width: 100%; }
+
+.no-bootstrap .card-body {
+    padding: 1.25rem;
+}
+
+.no-bootstrap .shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.no-bootstrap .form-control,
+.no-bootstrap input[type='text'],
+.no-bootstrap input[type='email'],
+.no-bootstrap input[type='password'],
+.no-bootstrap input[type='number'],
+.no-bootstrap select,
+.no-bootstrap textarea {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    box-sizing: border-box;
+}
+
+.no-bootstrap .btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.no-bootstrap .alert {
+    position: relative;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.no-bootstrap .alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.no-bootstrap .alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+
+.no-bootstrap .bg-dark {
+    background-color: #212529 !important;
+}
+
+.no-bootstrap .text-white {
+    color: #fff !important;
+}
+
+.no-bootstrap hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 /* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #efe2e2;
     min-height: 100vh;
+}
+
+/* Global soft-maroon surface theme (replaces harsh white blocks) */
+.card,
+.table,
+section,
+.login-container,
+.register-container,
+.modal-content {
+    background-color: #fbf4f4;
+}
+
+/* Final surface overrides: keep UI less white and softly maroon */
+body {
+    background-color: #efe2e2;
+}
+
+.card,
+.table,
+section,
+.login-container,
+.register-container,
+.modal-content,
+.dropdown-menu {
+    background-color: #fbf4f4 !important;
+}
+
+.table tbody tr:hover {
+    background-color: #f2e5e5;
+}
+
+.form-control,
+.form-select,
+textarea {
+    background-color: #fff8f8;
+}
+
+.bg-white {
+    background-color: #f8eeee !important;
+}
+
+.bg-light {
+    background-color: #f2e6e6 !important;
+}
+
+/* Unified dashboard page container background */
+.container.mt-4.mb-5 {
+    background-color: #f6ebeb;
+    border: 1px solid rgba(128, 0, 0, 0.1);
+    border-radius: 14px;
+    padding: 1rem 1rem 1.25rem;
 }
 
 .stonehenge-title {
@@ -44,6 +224,53 @@ body {
 .app-header {
     position: relative;
     padding-right: 120px !important;
+    background: linear-gradient(180deg, #f1e4e4 0%, #e7d2d2 60%, #ddc2c2 100%);
+    border-bottom: 1px solid rgba(128, 0, 0, 0.22);
+}
+
+.umu-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.umu-logo {
+    width: 135px;
+    height: auto;
+    flex: 0 0 auto;
+    display: block;
+}
+
+.umu-wordmark {
+    text-align: left;
+}
+
+.umu-title {
+    margin: 0;
+    line-height: 1;
+    font-size: 2.75rem;
+    font-weight: 700;
+    font-family: 'Stonehenge', 'UnifrakturMaguntia', 'Cinzel Decorative', 'Times New Roman', serif;
+    letter-spacing: 0.8px;
+    color: #101010;
+    white-space: nowrap;
+}
+
+.umu-accent {
+    color: #c72117;
+}
+
+.umu-motto {
+    margin: 0.05rem 0 0;
+    color: #e32716;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.05;
+    letter-spacing: 0.2px;
 }
 
 .global-logout-bottom {
@@ -68,6 +295,19 @@ body {
     .app-header {
         padding-right: 90px !important;
         padding-left: 0.75rem !important;
+    }
+
+    .umu-logo {
+        width: 98px;
+    }
+
+    .umu-title {
+        font-size: 1.35rem;
+        white-space: normal;
+    }
+
+    .umu-motto {
+        font-size: 1.05rem;
     }
 
     .footer-logout-wrap {
@@ -219,7 +459,7 @@ header h1 {
 
 /* Status Badge Colors */
 .badge-pending {
-    background-color: #dc3545;
+    background-color: #fd7e14;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -235,7 +475,7 @@ header h1 {
 }
 
 .badge-rejected {
-    background-color: #007bff;
+    background-color: #dc3545;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -377,11 +617,11 @@ header h1 {
 }
 
 .stat-card-blue::after {
-    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.06) 0%, transparent 100%);
 }
 
 .stat-card-blue:hover {
-    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.12);
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.15);
 }
 
 .stat-card-green {
@@ -439,7 +679,7 @@ header h1 {
 }
 
 .stat-number-blue {
-    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -622,6 +862,24 @@ section h3::after {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .umu-brand {
+        gap: 0.7rem;
+    }
+
+    .umu-logo {
+        width: 110px;
+    }
+
+    .umu-title {
+        font-size: 1.7rem;
+        line-height: 1;
+        white-space: normal;
+    }
+
+    .umu-motto {
+        font-size: 1.2rem;
+    }
+
     header h1 {
         font-size: 1.5rem;
         line-height: 1.2;

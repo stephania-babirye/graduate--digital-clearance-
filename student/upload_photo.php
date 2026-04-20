@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
     
     // Validate file
     $allowed_types = ['image/jpeg', 'image/png'];
-    $max_size = 2097152; // 2MB
+    $max_size = 5242880; // 5MB
 
     if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
         $_SESSION['error'] = "Upload failed. Please try again.";
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['photo'])) {
     }
     
     if ($file['size'] > $max_size) {
-        $_SESSION['error'] = "File size must be less than 2MB!";
+        $_SESSION['error'] = "File size must be less than 5MB!";
         header("Location: dashboard.php");
         exit();
     }

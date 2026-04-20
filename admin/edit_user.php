@@ -33,7 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $full_name = mysqli_real_escape_string($conn, $_POST['full_name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $role = mysqli_real_escape_string($conn, $_POST['role']);
+    $allowed_roles = ['student', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin'];
+    $submitted_role = $_POST['role'] ?? $user['role'];
+    $role = in_array($submitted_role, $allowed_roles, true) ? $submitted_role : $user['role'];
+    $role = mysqli_real_escape_string($conn, $role);
     $registration_number = mysqli_real_escape_string($conn, $_POST['registration_number']);
     
     // Check if email exists for other users

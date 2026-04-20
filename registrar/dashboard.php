@@ -89,8 +89,8 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
             <h5 class="mb-0">Master Clearance Approval Table</h5>
             <small class="text-white">
                 <span class="badge bg-success"><i class="fas fa-check-circle"></i> Approved</span>
-                <span class="badge bg-danger"><i class="fas fa-clock"></i> Pending</span>
-                <span class="badge bg-primary"><i class="fas fa-times-circle"></i> Rejected</span>
+                <span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>
+                <span class="badge badge-rejected"><i class="fas fa-times-circle"></i> Rejected</span>
             </small>
         </div>
         <div class="card-body">
@@ -131,11 +131,11 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                             } elseif ($resources_rejected) {
                                 $resources_status = 'rejected';
                                 $resources_icon = '<i class="fas fa-times-circle"></i>';
-                                $resources_badge = 'bg-primary';
+                                $resources_badge = 'badge-rejected';
                             } else {
                                 $resources_status = 'pending';
                                 $resources_icon = '<i class="fas fa-clock"></i>';
-                                $resources_badge = 'bg-danger';
+                                $resources_badge = 'badge-pending';
                             }
                         ?>
                         <tr class="<?php echo $all_approved && $app['registrar_status'] == 'pending' ? 'table-warning' : ''; ?>">
@@ -149,9 +149,9 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                                 <?php if ($app['finance_status'] == 'approved'): ?>
                                     <span class="badge bg-success"><i class="fas fa-check-circle"></i></span>
                                 <?php elseif ($app['finance_status'] == 'rejected'): ?>
-                                    <span class="badge bg-primary"><i class="fas fa-times-circle"></i></span>
+                                    <span class="badge badge-rejected"><i class="fas fa-times-circle"></i></span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger"><i class="fas fa-clock"></i></span>
+                                    <span class="badge badge-pending"><i class="fas fa-clock"></i></span>
                                 <?php endif; ?>
                             </td>
                             <!-- Resources Column (Library + ICT) -->
@@ -170,9 +170,9 @@ $graduation_list_count = $conn->query("SELECT COUNT(*) as count FROM graduation_
                                 <?php if ($app['faculty_status'] == 'approved'): ?>
                                     <span class="badge bg-success"><i class="fas fa-check-circle"></i></span>
                                 <?php elseif ($app['faculty_status'] == 'rejected'): ?>
-                                    <span class="badge bg-primary"><i class="fas fa-times-circle"></i></span>
+                                    <span class="badge badge-rejected"><i class="fas fa-times-circle"></i></span>
                                 <?php else: ?>
-                                    <span class="badge bg-danger"><i class="fas fa-clock"></i></span>
+                                    <span class="badge badge-pending"><i class="fas fa-clock"></i></span>
                                 <?php endif; ?>
                             </td>
                             <!-- Final Status Column -->

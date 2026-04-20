@@ -113,6 +113,7 @@ $max_dob = (new DateTime('today'))->modify('-17 years')->format('Y-m-d');
                     <form action="upload_photo.php" method="POST" enctype="multipart/form-data" id="photoForm">
                         <div class="mb-3">
                             <input type="file" class="form-control" name="photo" id="photoInput" accept="image/jpeg,image/png" onchange="previewPhoto(this)" required>
+                            <small class="text-muted d-block mt-1">Maximum file size: 5MB (JPG/PNG)</small>
                         </div>
                         <button type="submit" class="btn btn-maroon w-100">Upload Photo</button>
                     </form>
@@ -273,8 +274,8 @@ $max_dob = (new DateTime('today'))->modify('-17 years')->format('Y-m-d');
             <div class="alert alert-info mb-3">
                 <strong>Color Legend:</strong>
                 <span class="badge badge-approved ms-2"><i class="fas fa-check-circle"></i> Green = Approved</span>
-                <span class="badge badge-rejected ms-2"><i class="fas fa-times-circle"></i> Blue = Rejected</span>
-                <span class="badge badge-pending ms-2"><i class="fas fa-clock"></i> Red = Pending</span>
+                <span class="badge badge-rejected ms-2"><i class="fas fa-times-circle"></i> Red = Rejected</span>
+                <span class="badge badge-pending ms-2"><i class="fas fa-clock"></i> Orange = Pending</span>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -364,9 +365,9 @@ $max_dob = (new DateTime('today'))->modify('-17 years')->format('Y-m-d');
 <script>
 function previewPhoto(input) {
     if (input.files && input.files[0]) {
-        // Check file size (2MB = 2097152 bytes)
-        if (input.files[0].size > 2097152) {
-            alert('File size must be less than 2MB');
+        // Check file size (5MB = 5242880 bytes)
+        if (input.files[0].size > 5242880) {
+            alert('File size must be less than 5MB');
             input.value = '';
             return;
         }

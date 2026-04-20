@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 $users_query = "SELECT u.*, sp.program_level, sp.campus 
                 FROM users u 
                 LEFT JOIN student_profiles sp ON u.id = sp.user_id 
-                ORDER BY u.created_at DESC";
+                ORDER BY CASE WHEN u.role = 'staff' THEN 0 ELSE 1 END, u.created_at DESC";
 $users_result = $conn->query($users_query);
 ?>
 
@@ -26,6 +26,13 @@ $users_result = $conn->query($users_query);
     <?php if (isset($_SESSION['success'])): ?>
         <div class="alert alert-success alert-dismissible fade show">
             <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show">
+            <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     <?php endif; ?>
@@ -75,11 +82,12 @@ $users_result = $conn->query($users_query);
                             <td><?php echo htmlspecialchars($user['email']); ?></td>
                             <td>
                                 <span class="badge <?php 
-                                    echo $user['role'] == 'admin' ? 'bg-danger' : 
+                                    echo $user['role'] == 'staff' ? 'bg-warning text-dark' :
+                                        ($user['role'] == 'admin' ? 'bg-danger' : 
                                         ($user['role'] == 'registrar' ? 'bg-success' : 
-                                        ($user['role'] == 'student' ? 'bg-secondary' : 'bg-primary'));
+                                        ($user['role'] == 'student' ? 'bg-secondary' : 'bg-primary')));
                                 ?>">
-                                    <?php echo ucfirst($user['role']); ?>
+                                    <?php echo $user['role'] === 'staff' ? 'Pending Assignment' : ucfirst($user['role']); ?>
                                 </span>
                             </td>
                             <td><?php echo htmlspecialchars($user['registration_number'] ?? '-'); ?></td>
@@ -93,6 +101,22 @@ $users_result = $conn->query($users_query);
                             <td><?php echo date('M j, Y', strtotime($user['created_at'])); ?></td>
                             <td>
                                 <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                <?php if ($user['role'] === 'staff'): ?>
+                                    <form method="POST" action="assign_role.php" class="d-inline-flex align-items-center ms-1">
+                                        <input type="hidden" name="user_id" value="<?php echo (int)$user['id']; ?>">
+                                        <select name="assigned_role" class="form-select form-select-sm me-1" required>
+                                            <option value="">Select Role</option>
+                                            <option value="finance">Finance</option>
+                                            <option value="library">Library</option>
+                                            <option value="ict">ICT</option>
+                                            <option value="dean">Dean</option>
+                                            <option value="registrar">Registrar</option>
+                                            <option value="admin">System Admin</option>
+                                            <option value="student">Student</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-sm btn-success">Assign</button>
+                                    </form>
+                                <?php endif; ?>
                                 <?php if ($user['id'] != $_SESSION['user_id']): ?>
                                     <?php if ($user['is_active']): ?>
                                         <a href="toggle_user_status.php?id=<?php echo $user['id']; ?>&action=deactivate" 

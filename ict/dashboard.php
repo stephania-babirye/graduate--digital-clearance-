@@ -108,7 +108,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($ict_details['laptop_returned'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                                    echo '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -122,7 +122,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($ict_details['equipment_damaged'] == 'no') {
                                     echo '<span class="badge bg-success">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                                    echo '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -325,7 +325,7 @@ function viewDetails(id, name, regNo) {
             } else if (data.laptop_returned == 'no') {
                 document.getElementById('modalLaptop').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalLaptop').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                document.getElementById('modalLaptop').innerHTML = '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Equipment damaged status
@@ -339,7 +339,7 @@ function viewDetails(id, name, regNo) {
                 document.getElementById('modalDamaged').innerHTML = '<span class="badge bg-success">No</span>';
                 document.getElementById('damageDescDiv').style.display = 'none';
             } else {
-                document.getElementById('modalDamaged').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                document.getElementById('modalDamaged').innerHTML = '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
                 document.getElementById('damageDescDiv').style.display = 'none';
             }
             

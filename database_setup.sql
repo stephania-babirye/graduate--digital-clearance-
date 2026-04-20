@@ -1,18 +1,15 @@
--- ========================================
+
 -- Graduate Digital Clearance System
 -- Uganda Martyrs University
 -- Comprehensive Database Setup
--- ========================================
 -- This consolidated script creates all tables with complete schema
 -- Run this SQL script on a fresh MySQL database
 
 CREATE DATABASE IF NOT EXISTS graduation_clearance;
 USE graduation_clearance;
 
--- ========================================
 -- USERS TABLE
 -- All system users: students, officers, admins
--- ========================================
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
@@ -20,16 +17,14 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) UNIQUE NOT NULL,
     phone VARCHAR(20),
     password VARCHAR(255) NOT NULL,
-    role ENUM('student', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin') NOT NULL,
+    role ENUM('student', 'staff', 'finance', 'library', 'ict', 'dean', 'registrar', 'admin') NOT NULL,
     is_active TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- ========================================
 -- STUDENT PROFILES TABLE
 -- Extended student information including faculty
--- ========================================
 CREATE TABLE IF NOT EXISTS student_profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -45,11 +40,8 @@ CREATE TABLE IF NOT EXISTS student_profiles (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
--- ========================================
 -- CLEARANCE APPLICATIONS TABLE
 -- Main clearance tracking across all departments
--- ========================================
 CREATE TABLE IF NOT EXISTS clearance_applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -67,12 +59,11 @@ CREATE TABLE IF NOT EXISTS clearance_applications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ========================================
+
 -- DEPARTMENT APPROVALS TABLE
 -- Detailed approval info with department-specific fields
 -- ICT: Equipment tracking (laptop, damage)
 -- Faculty: Academic verification (results, dissertation)
--- ========================================
 CREATE TABLE IF NOT EXISTS department_approvals (
     id INT AUTO_INCREMENT PRIMARY KEY,
     application_id INT NOT NULL,
@@ -97,10 +88,8 @@ CREATE TABLE IF NOT EXISTS department_approvals (
     FOREIGN KEY (approved_by) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- ========================================
 -- APPROVAL HISTORY TABLE
 -- Audit trail of all approval actions
--- ========================================
 CREATE TABLE IF NOT EXISTS approval_history (
     id INT AUTO_INCREMENT PRIMARY KEY,
     application_id INT NOT NULL,
@@ -114,10 +103,8 @@ CREATE TABLE IF NOT EXISTS approval_history (
     FOREIGN KEY (officer_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ========================================
 -- GRADUATION LIST TABLE
 -- Confirmed graduates with registrar notes
--- ========================================
 CREATE TABLE IF NOT EXISTS graduation_list (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -133,10 +120,8 @@ CREATE TABLE IF NOT EXISTS graduation_list (
     FOREIGN KEY (confirmed_by) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ========================================
 -- SYSTEM SETTINGS TABLE
 -- University and system configuration
--- ========================================
 CREATE TABLE IF NOT EXISTS system_settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     university_name VARCHAR(255) DEFAULT 'Uganda Martyrs University',
@@ -148,10 +133,8 @@ CREATE TABLE IF NOT EXISTS system_settings (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- ========================================
 -- ACTIVITY LOGS TABLE
 -- System-wide activity tracking
--- ========================================
 CREATE TABLE IF NOT EXISTS activity_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -162,11 +145,9 @@ CREATE TABLE IF NOT EXISTS activity_logs (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
--- ========================================
 -- DEFAULT DATA
 -- Initial admin user (password: admin123)
 -- IMPORTANT: Change this password immediately after installation
--- ========================================
 INSERT IGNORE INTO users (full_name, email, password, role) 
 VALUES ('System Administrator', 'admin@umu.ac.ug', '$2y$10$7XtGLmwk/1dldSzIhh/Z1uKOZa0CS3lUs7WiPQ.ux41rIKCEsgWsa', 'admin');
 

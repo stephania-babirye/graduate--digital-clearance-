@@ -15,6 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Verify password
         if (password_verify($password, $user['password'])) {
+            if (isset($user['is_active']) && (int)$user['is_active'] !== 1) {
+                $_SESSION['error'] = "Your account is inactive. Contact the System Administrator.";
+                header("Location: index.php");
+                exit();
+            }
+
+            if ($user['role'] === 'staff') {
+                $_SESSION['error'] = "Your request has been sent to the System Admin. Login will be enabled after role assignment.";
+                header("Location: index.php");
+                exit();
+            }
+
             // Set session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['full_name'] = $user['full_name'];
@@ -25,9 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             switch ($user['role']) {
                 case 'student':
                     header("Location: ../student/dashboard.php");
-                    break;
-                case 'staff':
-                    header("Location: ../staff/dashboard.php");
                     break;
                 case 'finance':
                     header("Location: ../finance/dashboard.php");

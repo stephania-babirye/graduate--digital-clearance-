@@ -129,7 +129,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($faculty_details['results_confirmed'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                                    echo '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -140,7 +140,7 @@ $rejected_count = $conn->query("SELECT COUNT(*) as count FROM clearance_applicat
                                 } elseif ($faculty_details['dissertation_approved'] == 'no') {
                                     echo '<span class="badge bg-danger">No</span>';
                                 } else {
-                                    echo '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                                    echo '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
                                 }
                                 ?>
                             </td>
@@ -354,7 +354,7 @@ function viewDetails(id, name, regNo, course) {
             } else if (data.results_confirmed == 'no') {
                 document.getElementById('modalResults').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalResults').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                document.getElementById('modalResults').innerHTML = '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Dissertation approved status
@@ -363,7 +363,7 @@ function viewDetails(id, name, regNo, course) {
             } else if (data.dissertation_approved == 'no') {
                 document.getElementById('modalDissertation').innerHTML = '<span class="badge bg-danger">No</span>';
             } else {
-                document.getElementById('modalDissertation').innerHTML = '<span class="badge bg-secondary"><i class="fas fa-clock"></i> Pending</span>';
+                document.getElementById('modalDissertation').innerHTML = '<span class="badge badge-pending"><i class="fas fa-clock"></i> Pending</span>';
             }
             
             // Faculty name

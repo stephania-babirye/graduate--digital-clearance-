@@ -68,7 +68,7 @@ include '../includes/header.php';
                         <div class="form-group">
                             <label for="email">Email Address</label>
                             <input type="email" class="form-control" id="email" name="email" required placeholder="yourname@stud.umu.ac.ug">
-                            <small class="form-text text-muted" id="emailHelp">Students: use email with @stud, Staff: use email with @umu</small>
+                            <small class="form-text text-muted" id="emailHelp">Students: use @stud.umu.ac.ug, Staff: use @umu.ac.ug (admin approval required)</small>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -175,10 +175,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (isStudent) {
             emailInput.placeholder = 'yourname@stud.umu.ac.ug';
-            emailHelp.textContent = "Students: email must contain '@stud'.";
+            emailHelp.textContent = "Students: email must end with '@stud.umu.ac.ug'.";
         } else {
             emailInput.placeholder = 'yourname@umu.ac.ug';
-            emailHelp.textContent = "Staff/Offices: email must contain '@umu'.";
+            emailHelp.textContent = "Staff/Offices: email must end with '@umu.ac.ug'. Account remains pending until System Admin assigns role.";
             specificProgram.disabled = true;
             specificProgram.innerHTML = '<option value="">First select programme level</option>';
             fullProgramme.textContent = 'Not applicable for staff';

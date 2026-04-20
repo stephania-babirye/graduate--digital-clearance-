@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $account_type = 'student';
     }
     $full_name = mysqli_real_escape_string($conn, trim($_POST['full_name'] ?? ''));
-    $email = mysqli_real_escape_string($conn, trim($_POST['email'] ?? ''));
+    $email = strtolower(trim($_POST['email'] ?? ''));
+    $email = mysqli_real_escape_string($conn, $email);
     $phone = mysqli_real_escape_string($conn, trim($_POST['phone'] ?? ''));
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
@@ -66,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Store staff ID in registration_number for compatibility with existing features.
         $reg_number = $staff_id;
 
-        if (strpos(strtolower($email), '@umu') === false) {
-            $_SESSION['error'] = "Staff/office email must contain '@umu' (e.g., yourname@umu.ac.ug)";
+        if (!preg_match('/@umu\.ac\.ug$/i', $email)) {
+            $_SESSION['error'] = "Staff/office email must end with '@umu.ac.ug' (e.g., yourname@umu.ac.ug)";
             header("Location: register.php");
             exit();
         }
@@ -87,8 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Validate student email contains @stud
-        if (strpos($email, '@stud') === false) {
-            $_SESSION['error'] = "Student email must contain '@stud' (e.g., yourname@stud.umu.ac.ug)";
+        if (!preg_match('/@stud\.umu\.ac\.ug$/i', $email)) {
+            $_SESSION['error'] = "Student email must end with '@stud.umu.ac.ug' (e.g., yourname@stud.umu.ac.ug)";
             header("Location: register.php");
             exit();
         }
@@ -134,7 +135,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $conn->query($staff_profile_sql);
         }
 
-        $_SESSION['success'] = "Registration successful! Please login.";
+        if ($role === 'staff') {
+            $safeName = mysqli_real_escape_string($conn, $full_name);
+            $safeEmail = mysqli_real_escape_string($conn, $email);
+            $requestNote = "New staff/officer registration pending role assignment: {$safeName} ({$safeEmail})";
+            $adminNotifyLog = "INSERT INTO activity_logs (user_id, action, description, ip_address) 
+                               VALUES ($user_id, 'Role Assignment Request', '$requestNote', '{$_SERVER['REMOTE_ADDR']}')";
+            $conn->query($adminNotifyLog);
+
+            $_SESSION['success'] = "Registration submitted. Your account is pending System Admin approval and role assignment.";
+        } else {
+            $_SESSION['success'] = "Registration successful! Please login.";
+        }
         header("Location: index.php");
     } else {
         $_SESSION['error'] = "Registration failed. Please try again.";

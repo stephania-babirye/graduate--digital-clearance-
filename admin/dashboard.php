@@ -21,6 +21,9 @@ $total_students = $conn->query($total_students_query)->fetch_assoc()['count'];
 $total_officers_query = "SELECT COUNT(*) as count FROM users WHERE role != 'student' AND role != 'admin'";
 $total_officers = $conn->query($total_officers_query)->fetch_assoc()['count'];
 
+$pending_role_assignments_query = "SELECT COUNT(*) as count FROM users WHERE role = 'staff'";
+$pending_role_assignments = $conn->query($pending_role_assignments_query)->fetch_assoc()['count'];
+
 $total_applications_query = "SELECT COUNT(*) as count FROM clearance_applications";
 $total_applications = $conn->query($total_applications_query)->fetch_assoc()['count'];
 
@@ -97,6 +100,13 @@ while ($row = $roles_result->fetch_assoc()) {
             </div>
         </div>
     </div>
+
+    <?php if ($pending_role_assignments > 0): ?>
+        <div class="alert alert-warning">
+            <strong>Pending Role Assignments:</strong> <?php echo $pending_role_assignments; ?> staff/officer account(s) are waiting for System Admin role assignment.
+            <a href="user_management.php" class="alert-link">Open User Management</a>
+        </div>
+    <?php endif; ?>
 
     <!-- System Status -->
     <div class="card mb-4">
@@ -182,6 +192,12 @@ while ($row = $roles_result->fetch_assoc()) {
                             <td><?php echo $role_counts['student'] ?? 0; ?></td>
                             <td><span class="badge bg-secondary">User Level</span></td>
                             <td>Student Dashboard</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pending Staff/Office</strong></td>
+                            <td><?php echo $role_counts['staff'] ?? 0; ?></td>
+                            <td><span class="badge bg-warning text-dark">No Access Yet</span></td>
+                            <td>System Admin Assignment Required</td>
                         </tr>
                         <tr>
                             <td><strong>Finance Officer</strong></td>
